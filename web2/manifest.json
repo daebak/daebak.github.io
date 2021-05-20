@@ -1,6 +1,6 @@
 {
-    "name": "sdjflutter",
-    "short_name": "sdjflutter",
+    "name": "firechat",
+    "short_name": "firechat",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
