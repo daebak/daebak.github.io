@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="firechat">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>firechat</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=2815445082');
+      });
+    }
+  </script>
+
+<script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyAzUu4HFk2tDIzPgLBgXvs9DE-5Lk8ri2M",
+      authDomain: "sdjfirstapp-482eb.firebaseapp.com",
+      databaseURL: "https://sdjfirstapp-482eb.firebaseio.com",
+      projectId: "sdjfirstapp-482eb",
+      storageBucket: "sdjfirstapp-482eb.appspot.com",
+      messagingSenderId: "489301222321",
+      appId: "1:489301222321:web:69bb5e93ee089fd3eb9390",
+      measurementId: "G-2V7CVQPEHD"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+<script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>
