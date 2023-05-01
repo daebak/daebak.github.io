@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="42px" viewBox="0 0 31 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>mdpi/alert</title>
+    <defs>
+        <polygon id="path-1" points="0 0.112882353 24.9994643 0.112882353 24.9994643 29.9999412 0 29.9999412"></polygon>
+    </defs>
+    <g id="alert" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="alert_icon">
+            <g id="Group-3" transform="translate(0.000000, 10.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+            </g>
+            <path d="M5,30 L5,14.490893 C5,10.9211595 8.08356113,8 11.8517538,8 L19.1482462,8 C22.9164389,8 26,10.9211595 26,14.490893 L26,30" id="Stroke-4" stroke="#333333" stroke-width="2" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+            <polygon id="Stroke-6" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="3 39 28 39 28 31 3 31"></polygon>
+            <path d="M19,12.0065078 C19,12.0065078 20.7462573,11.7058504 21,15.1917008 L21,20" id="Stroke-8" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <line x1="11" y1="4" x2="9" y2="0" id="Stroke-9" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            <line x1="19" y1="4" x2="21" y2="0" id="Stroke-10" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            <line x1="15" y1="0" x2="15" y2="4" id="Stroke-11" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+        </g>
+    </g>
+</svg>
