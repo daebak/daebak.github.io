@@ -1,0 +1,1883 @@
+                    <!--?xml version="1.0" encoding="EUC-KR" ?-->
+                    <!DOCTYPE html>
+                    <html lang="ko">
+                    <head>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>법원 경매 사이트 크롤링 결과</title>
+                        <style>
+                        /*	-------------------------------------------------------------
+ courtauction.go.kr
+ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ Description:	Tables Common Styles
+ Filename:		table.css
+ Version:
+ Writer:		Moon seunghyun and..
+ ---  -----------  -----------------  -----------------------------------
+                   º¯         °æ         »ç         Ç×
+ ------------------------------------------------------------------------
+ $Log: table.css,v $
+ Revision 1.43  2015/03/20 00:36:30  °­Àº¼÷
+ [15A-AIS-0007] 3.23 ÁýÇàºñ¼Û SI ¼Ò½º¹Ý¿µ
+
+
+ 1.0  2015.01.13   ±èÇý°æ                            [CJS6] PNO102003 ¼­ºêÅÇ ¿ë CSS Ãß°¡
+ ------------------------------------------------------------------------ */
+
+/* Table - Basic common table style
+ ---------------------------------------------------------*/
+.Ltbl_list, .Ltbl_dt {
+    width: 100%;
+    border-top: solid #cfdff4 2px;
+    border-bottom: solid #cfdff4 2px;
+    clear: both;
+    margin-bottom: 5px;
+    word-break: break-all;
+}
+
+.Ltbl_list li, .Ltbl_dt li {
+    background: none !important;
+}
+
+.Ltbl_dt b, .Ltbl_list b {
+    color: #2C5EA2;
+}
+
+.Ltbl_dt p, .Ltbl_list p, .Ltbl_list ul, .Ltbl_dt ul, .Ltbl_list li, .Ltbl_dt li {
+    padding: 0 !important;
+}
+
+.btn_more {
+    position: absolute;
+    top: 10px;
+    left: 630px;
+    width: 40px;
+}
+
+/* PNO102003 only
+ ---------------------------------------------------------*/
+.btn_more_mv {
+    position: relative;
+    top: -17px;
+    left: 630px;
+    width: 40px;
+
+.top:
+    10px;
+
+.left:
+    511px;
+
+.width:
+    40px;
+}
+
+.img_margin {
+    margin-top: -3px;
+
+.margin-top:
+    -6px;
+}
+
+.inputbtn_margin {
+    margin-bottom: -4px;
+
+.margin-bottom:
+    -2px;
+}
+
+.accent {
+    color: #eb0000;
+}
+
+caption {
+    display: none
+}
+
+blockquote {
+    margin: 0 0 0 15px;
+}
+
+.bgover {
+    background-color: #f5f5f5;
+}
+
+.bgout {
+    background-color: #fff;
+}
+
+/* Table - 1) List table
+ ---------------------------------------------------------*/
+.Ltbl_list thead th {
+    background-image: url(/images/bg_header.gif);
+    font-weight: normal;
+    color: #555555;
+    text-align: center;
+    padding: 7px 3px 5px;
+    border: 1px solid #D4D4D4;
+}
+
+.Ltbl_list tbody td {
+    border: 1px solid #D4D4D4;
+    padding: 7px 3px 5px;
+    text-align: center;
+}
+
+.Ltbl_list_lvl0, .Ltbl_list_lvl1 {
+    background-color: #FFFFFF;
+    font-size: 12px;
+    padding: 7px 6px 5px;
+}
+
+.Ltbl_list_lvl1 {
+    background-color: #F5F5F5;
+}
+
+.Ltbl_list img {
+    padding-bottom: 3px;
+}
+
+.tbl_btm_line {
+    border-top: 1px solid #DEDEDE;
+    padding-top: 6px;
+}
+
+.tbl_btm_noline {
+    padding: 3px 0;
+}
+
+.padding0 {
+    padding: 0px !important;
+}
+
+#tel_layer {
+    position: absolute;
+    width: 270px;
+    visibility: hidden;
+}
+
+#tel_layer table {
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#tel_layer_top {
+    background: url(/images/tlayer_bg_top.gif) no-repeat;
+    height: 10px;
+    font-size: 1px;
+}
+
+#tel_layer_btm {
+    background: url(/images/tlayer_bg_bottom.gif) no-repeat;
+    height: 10px;
+}
+
+#tel_layer_dt {
+    background-color: #FFFFFF;
+    border-left: 2px solid #E4E4E4;
+    border-right: 2px solid #E4E4E4;
+    padding: 0 8px;
+}
+
+#tel_layer th {
+    color: #2c5ea2;
+    background: url(/images/ic_dot_gray.gif) no-repeat 7px 50%;
+    border: none;
+    width: 80px;
+    padding: 0 0 0 15px;
+}
+
+#tel_layer td {
+    border: none;
+    text-align: left;
+    width: 190px;
+    padding-right: 5px;
+}
+
+#etc_layer {
+    position: absolute;
+    width: 310px;
+    visibility: hidden;
+}
+
+#etc_layer table {
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#etc_layer_top {
+    background: url(/images/layer_bg_top.gif) no-repeat;
+    height: 10px;
+    font-size: 1px;
+}
+
+#etc_layer_btm {
+    background: url(/images/layer_bg_bottom.gif) no-repeat;
+    height: 10px;
+}
+
+#etc_layer_dt {
+    background-color: #FFFFFF;
+    border-left: 2px solid #E4E4E4;
+    border-right: 2px solid #E4E4E4;
+    padding: 0 8px;
+}
+
+#etc_layer th {
+    color: #2c5ea2;
+    background: url(/images/ic_dot_gray.gif) no-repeat 7px 50%;
+    border: none;
+    width: 80px;
+    padding: 0 0 0 15px;
+}
+
+#etc_layer td {
+    border: none;
+    text-align: right;
+    width: 310px;
+    padding-right: 5px;
+}
+
+/* Paging
+ ---------------------------------------------------------*/
+.page_sum {
+    position: relative;
+}
+
+.page1 {
+    position: absolute;
+    padding: 5px 5px 0;
+    float: left;
+    font-weight: bold;
+}
+
+.paging {
+    background-color: #eff2f9;
+    border: 1px solid #d5e4f7;
+    border-top: none;
+    padding: 6px 0 0;
+    height: 26px;
+    margin: -5px 0 5px;
+}
+
+.page1 span {
+    color: #0039a3;
+}
+
+.page2 {
+    padding: 3px 0 0 107px;
+    float: left;
+    font-family: Verdana;
+    font-size: 11px;
+    width: 485px;
+    text-align: center;
+}
+
+* html .page2 img {
+    padding-top: 2px;
+}
+
+.page2 span {
+    padding: 0 4px;
+}
+
+.page2 span a:link, .page2 span a:visited, .page2 span a:active {
+    color: #656565;
+}
+
+.page2 span a:hover {
+    text-decoration: underline;
+    color: #ff5400;
+}
+
+.page_on {
+    color: #b7034f;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.page3 {
+    padding-right: 5px;
+    float: right;
+	font-size:11px;
+}
+
+/* Table - 2) Detail, input table
+ ---------------------------------------------------------*/
+.Ltbl_dt tr {
+    height: 26px;
+}
+
+.Ltbl_dt th, .Ltbl_dt td {
+    border: 1px solid #D4D4D4;
+    padding: 2px 6px 0px;
+
+.padding:
+    1px 6px 1px;
+
+font-weight:normal;
+}
+
+.Ltbl_dt td {
+    line-height: 20px;
+}
+
+.Ltbl_dt th {
+    background-color: #eef4f9;
+    font-weight: normal;
+    text-align: left;
+}
+
+.Ltbl_dt td .help {
+    color: #8191b4;
+    font-size: 11px;
+    padding-left: 10px;
+}
+
+.photo_td {
+    width: 108px;
+    height: 108px;
+    text-align: center;
+    background: url(/images/pop_bg_photo.gif) no-repeat;
+    padding-top: 6px;
+    margin: 3px 5px 0 0;
+    float: left;
+}
+
+.photo_td_last {
+    width: 108px;
+    height: 108px;
+    text-align: center;
+    background: url(/images/pop_bg_photo_last.gif) no-repeat;
+    padding-top: 6px;
+    margin: 3px 5px 0 0;
+    float: left;
+}
+
+.photo_td img {
+    width: 96px;
+    height: 96px;
+}
+
+.photo_ic_l {
+	float:left;
+    margin-left: 0px;
+    padding-top: 45px;
+}
+
+.photo_ic_r {
+    margin-left: 580px;
+    padding-top: 45px;
+}
+
+.special_label {
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.special_label li {
+    float: left;
+    width: 96px;
+    margin-top: 2px;
+}
+
+.special_label2{
+	width: 99%;
+	padding-bottom: 3px;
+}
+
+.special_label2 li{
+	margin-top: 2px;
+}
+
+.special_label_alone {
+    width: 99%;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.special_label_alone li {
+    float: left;
+    width: 97px;
+    margin-top: 3px;
+}
+
+.sl_btn {
+    position: absolute;
+    right: -2px;
+    bottom: 5px;
+}
+
+.sl_btn2 {
+    padding: 6px 0 0 2px;
+}
+
+.Ltbl_dt select {
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+/* Table - search table
+ ---------------------------------------------------------*/
+.Ltbl_srch_topbg {
+    background: url(/images/search_bg_top.gif) no-repeat;
+    height: 5px;
+    font-size: 1px;
+    position: relative;
+}
+
+.Ltbl_srch_midbg {
+    background: url(/images/search_bg_middle.gif) repeat-y;
+    width: 100%;
+    position: relative;
+}
+
+.Ltbl_srch_botbg {
+    background: url(/images/search_bg_bottom.gif) no-repeat;
+    height: 5px;
+    font-size: 1px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.srch_dt_btn {
+    position: relative;
+    float: left;
+    height: 1%;
+}
+
+.Ltbl_srch_btn_1row {
+    position: absolute;
+    top: -3px;
+    left: 15px;
+}
+
+.Ltbl_srch_btn {
+    position: absolute;
+    top: -27px;
+    left: 625px;
+}
+
+.srch_box {
+    padding: 4px 0 4px 10px;
+}
+
+.srch_box li {
+    display: inline;
+}
+
+.srch_box input {
+    padding-top: 1px;
+}
+
+.srch_line {
+    border-top: 1px dashed #bdd6ff;
+    margin: 3px 15px 3px;
+}
+
+.srch_0hd, .srch_1hd, .srch_2hd, .srch_1hd_long {
+    padding: 5px 10px 0 30px;
+    font-weight: bold;
+    float: left;
+    background: url(/images/ic_arrow_box.gif) no-repeat 10px 90%;
+} /*°Ë»ö¸ñ·Ï Á¦¸ñ*/
+.srch_1hd {
+    padding-right: 0;
+    width: 70px;
+}
+
+.srch_1hd_long {
+    padding-right: 0;
+    width: 85px;
+}
+
+.srch_2hd {
+    margin-left: 15px;
+}
+
+.srch_dt {
+    float: left;
+    height: 21px;
+}
+
+.srch_dt input {
+    padding: 1px;
+    vertical-align: middle;
+}
+
+.srch_dt select {
+    vertical-align: middle;
+}
+.tbl_cal {
+    width: 97%;
+    clear: both;
+    margin: 0 auto;
+    position: relative;
+}
+.tbl_cal th {
+    background-image: url(/images/bg_d_bar.gif);
+    text-align: center;
+    padding: 8px 6px 6px;
+    border: 1px solid #e7e7e7;
+}
+.tbl_cal td {
+    background-color: #FFFFFF;
+    border: 1px solid #e7e7e7;
+    padding: 4px;
+    text-align: center;
+    vertical-align: top;
+    height: 50px;
+}
+
+* html .tbl_cal td {
+    height: 45px;
+} /* for ie6 */
+.cal_redfont {
+    color: #e40000;
+}
+
+.cal_date {
+    font-family: Verdana;
+    font-size: 11px;
+    text-align: left;
+}
+
+.cal_schedule {
+    text-align: left;
+    margin-left: 0px;
+}
+
+.cal_schedule2 {
+    text-align: left;
+}
+
+.cal_schedule_lmargin {
+    text-align: left;
+    margin-left: 14px;
+}
+
+.cal_schedule img {
+    padding: 0 0px 2px 2px;
+}
+#cal_popup {
+    width: 235px;
+    padding: 8px;
+}
+.cal_popup_year {
+    text-align: center;
+    padding: 7px;
+    border-bottom: 1px dashed #CCCCCC;
+    font-size: 14px;
+    font-weight: bold;
+}
+.cal_popup_month {
+    color: #666666;
+    font-weight: bold;
+    text-align: center;
+    padding: 7px 0;
+    font-family: Verdana;
+    font-size: 11px;
+}
+
+.cal_popup_month a {
+    padding: 0 3px;
+    color: #999999;
+    font-weight: normal;
+}
+
+.cal_popup_month a:hover {
+    text-decoration: underline;
+}
+
+.cal_popup_month span {
+    text-decoration: underline;
+}
+
+.tbl_cal_popup {
+    width: 100%;
+}
+
+.tbl_cal_popup th, .tbl_cal_popup td {
+    text-align: center;
+    padding: 3px 6px 3px;
+    border: 1px solid #e7e7e7;
+}
+
+.csun, .csun a:link, .csun a:visited {
+    color: #FF0000;
+}
+
+.csun a:hover {
+    text-decoration: underline;
+}
+
+.csat, .csat a:link, .csat a:visited {
+    color: #3366CC;
+}
+
+.csat a:hover {
+    text-decoration: underline;
+}
+
+.cday, .cday a:link, .cday a:visited {
+    color: #666;
+}
+
+.cday a:hover {
+    text-decoration: underline;
+}
+
+.ctoday {
+    color: #000099;
+    background: #eef4f9;
+    font-weight: bold;
+}
+
+.ctoday a:hover {
+    text-decoration: underline;
+}
+
+/* tab_menu
+ ---------------------------------------------------------*/
+.tab_menu {
+    height: 27px;
+    background: url(/images/line.gif) repeat-x 0 25px;
+    margin: 5px 0;
+    clear: both;
+    text-align: center;
+    position: relative;
+}
+
+.tab_menu a:link, .tab_menu a:visited, .tab_menu a:active {
+    color: #a9a9a9;
+}
+
+.tab_menu a:hover {
+    text-decoration: underline;
+    color: #4587d0;
+    text-decoration: none;
+}
+
+.tab_menu_on_l {
+    float: left;
+    background: url(/images/tab_left_on.gif) no-repeat;
+    width: 7px;
+    height: 25px;
+}
+
+.tab_menu_on_m_small, .tab_menu_on_m_mid, .tab_menu_on_m_large {
+    float: left;
+    background: url(/images/tab_middle_on.gif) repeat-x;
+    height: 20px;
+    padding: 8px 5px 0;
+    color: #4587d0;
+    font-weight: bold;
+}
+
+.tab_menu_on_r {
+    float: left;
+    background: url(/images/tab_right_on.gif) no-repeat;
+    width: 9px;
+    height: 25px;
+}
+
+.tab_menu_off_l {
+    float: left;
+    background: url(/images/tab_left.gif) no-repeat;
+    width: 7px;
+    height: 25px;
+}
+
+.tab_menu_off_m_small, .tab_menu_off_m_mid, .tab_menu_off_m_large {
+    float: left;
+    background: url(/images/tab_middle.gif) repeat-x;
+    height: 20px;
+    padding: 8px 5px 0;
+    font-weight: bold;
+}
+
+.tab_menu_off_r {
+    float: left;
+    background: url(/images/tab_right.gif) no-repeat;
+    width: 9px;
+    height: 25px;
+}
+/* ÅÇ Å¸ÀÌÆ²¿¡ µû¸¥ width°ª */
+.tab_menu_on_m_small, .tab_menu_off_m_small {
+    width: 85px;
+} /* less than 4 charater(hangul) */
+.tab_menu_on_m_mid, .tab_menu_off_m_mid {
+    width: 95px;
+} /* from 5 to 7 */
+.tab_menu_on_m_large, .tab_menu_off_m_large {
+    width: 125px;
+} /* more than 8 */
+.tab_menu .tbl_btn {
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+}
+
+/* ±èÇý°æ , 2015.01.13, [CJS6] PNO102003 ¼­ºêÅÇ ¿ë CSS Start */
+ul.new_tab01 {
+    margin:0 0 5px;
+    padding:0;
+    height:39px;
+    overflow:hidden;
+}
+ul.new_tab01:after {
+    content:'';
+    display:block;clear:both;
+}
+ul.new_tab01 li {
+    float:left;
+    height:39px;
+    margin-left:10px;
+    padding:0;
+    background:url('/images/bg_newtab01_off.gif') no-repeat 0 0;
+    letter-spacing:-1px;
+    text-align:center;
+}
+ul.new_tab01 li.firli {
+    margin-left:0;
+}
+ul.new_tab01 li strong {
+    display:block;
+    line-height:1.2;
+}
+ul.new_tab01 li a {
+    display:block;
+    height:32px;
+    padding:7px 13px 0;
+    background:url('/images/bg_newtab01_off.gif') no-repeat right bottom;
+    color:#666;
+}
+ul.new_tab01 li.on {
+    background:url('/images/bg_newtab01_on.gif') no-repeat 0 0;
+}
+ul.new_tab01 li.on span {
+    display:block;
+    height:32px;
+    padding:7px 13px 0;background:url('/images/bg_newtab01_on.gif') no-repeat right bottom;
+    color:#003c66;
+}
+ul.new_tab01 li a:hover, ul.new_tab01 li a:focus {
+    text-decoration:underline;
+}
+.Ltbl_int {
+    border: none;margin: 0;
+}
+.Ltbl_int tr {
+    height:10px !important;
+    line-height:1.2;
+}
+.Ltbl_int th {
+    padding:3px 0 0;
+}
+.Ltbl_int tbody td {
+    padding:3px 0 0;
+}
+</style>
+                    </head>
+                    <body>
+                    <table class="Ltbl_list" summary="물건상세검색 결과 표">
+<caption>물건상세검색 결과</caption>
+<thead>
+<tr>
+<th class="padding0" width="4%">
+<input id="idCheckAll" name="checkAll" onclick="javascript:allCheck();" type="checkbox"/>
+</th>
+<th width="15%">
+<a href="#" onclick="goOrderByPage(1,'order by saNo asc'); return false;">사건번호<img alt="오름차순" border="0" src="/images/ic_sort_up.gif"/></a>
+</th>
+<th width="9%">물건번호<br/>
+			용도</th>
+<th width="30%">소재지 및 내역</th>
+<th width="17%">비고</th>
+<th width="14%">
+<a href="#" onclick="goOrderByPage(1,'order by gamevalAmt asc'); return false;">감정평가액<img alt="오름차순" border="0" src="/images/ic_sort_up.gif"/></a>
+<br/>
+<a href="#" onclick="goOrderByPage(1,'order by notifyMinmaePrice1 asc'); return false;">최저매각가격<img alt="오름차순" border="0" src="/images/ic_sort_up.gif"/></a>
+<br/>
+			(단위:원)
+		    </th>
+<th width="12%">
+			 담당계<br/>
+<a href="#" onclick="goOrderByPage(1,'order by maeGiil asc'); return false;">매각기일<img alt="오름차순" border="0" src="/images/ic_sort_up.gif"/></a>
+<br/>
+			(입찰기간)
+			<br/>
+<a href="#" onclick="goOrderByPage(1,'order by yuchalCnt asc'); return false;">진행상태<img alt="오름차순" border="0" src="/images/ic_sort_up.gif"/></a>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20190130009331,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2019타경9331<br/>
+</td>
+<td>
+			1<br/>
+			근린시설</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20190130009331',
+														'1'); return false;">
+			서울특별시 강남구  광평로 280, 지하2층135호 (수서동,로즈데일빌딩)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20190130009331',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철골철근콘크리트조
+158.16㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				특별매각조건 매수신청보증금 최저매각가격의 20% 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			885,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			362,496,000
+
+			<br/>
+			(40%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg0');return false;">
+<img alt="안내" id="idImg0" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	4회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130000610,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경610<br/>
+</td>
+<td>
+			1<br/>
+			단독주택</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300006101" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130000610',
+														'1'); return false;">
+			서울특별시 종로구 홍지동  129-14 </a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130000610',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[토지 대 231㎡]
+			 </div>
+<div class="tbl_btm_line">
+<a href="#" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130000610',
+														'1'); return false;">
+			서울특별시 종로구  자하문로41길 32 </a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130000610',
+														 '1',
+														 '2'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[건물 블럭조 기와지붕 단층주택
+33.80㎡
+블럭조 기와지붕 단층주택
+6.96㎡
+블럭조 기와지붕 단층주택
+1.56㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				일괄매각. 제시외 건물 포함 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			747,045,600
+			</div>
+<div class="tbl_btm_line">
+
+			305,990,000
+
+			<br/>
+			(40%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg2');return false;">
+<img alt="안내" id="idImg2" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	4회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130001712,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경1712<br/>
+</td>
+<td>
+			1<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300017121" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130001712',
+														'1'); return false;">
+			서울특별시 관악구  난곡로26길 115, 4층401호 (신림동,대림아트빌)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130001712',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 28.92㎡]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			277,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			12,182,000
+
+			<br/>
+			(4%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg3');return false;">
+<img alt="안내" id="idImg3" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	14회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130002807,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경2807<br/>
+			
+ 			2021타경107832<br/>(중복)<br/>
+</td>
+<td>
+			1<br/>
+			전답</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300028071" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130002807',
+														'1'); return false;">
+			서울특별시 종로구 구기동  76-2 </a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130002807',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[토지 전 5416㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				지목이 '전'이나 현황은 묵전 및 토지 임야 상태임.
+맹지.
+부동산현황조사서에 의하면 부동산의 정확한 위치, 면적, 구획 등을 위해서는 전문가의 별도 측량과 조사가 필요함
+종로구 사실조회에 의하면 본건 토지는 농지취득자격증명없이 취득할 수 있음, 본건 토지는 비오톱 1등급으로 무단형질변경(불법 임목 훼손, 훼손면적 약725㎡)에 대하여 원상회복명령이 내려진 상태임 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			2,572,600,000
+			</div>
+<div class="tbl_btm_line">
+
+			1,646,464,000
+
+			<br/>
+			(64%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg4');return false;">
+<img alt="안내" id="idImg4" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	7회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130003411,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경3411<br/>
+</td>
+<td>
+			1<br/>
+			상가</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300034111" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130003411',
+														'1'); return false;">
+			서울특별시 중구  을지로45길 72, 3층85호 (신당동,디자이너크럽)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130003411',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트조
+4.94㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				본건 건물 3층은 2017년 12월 경 리모델링이 이루어졌고 이후 공부상 표시변경이 이루어지지않아 건출물대장현황도와 현황 실제 이용호수가 상이함.
+본건 실제이용상황은 기존 2~3개호를 일괄하여 한개의 호수(3층 112호)로 이용중.
+본건은 건축물대장현황도상 호수와 별개로 112호 중 일부로 탐문되었으며 판매시설로 이용중. 
+실측없이 건축물현황도및 본건 기존 평가전례 현황도를 기준으로 이루어진바 입찰시 확인요함.
+본건 대지사용권인 토지의 권리는 임차권이므로 매각목적물은 전유부분(112호)와 임차권임.
+최저매각가격은 전유부분과 대지임차권이 포함된 가격임. 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			80,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			6,872,000
+
+			<br/>
+			(8%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg5');return false;">
+<img alt="안내" id="idImg5" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	11회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130004667,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경4667<br/>
+</td>
+<td>
+			1<br/>
+			기타</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300046671" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130004667',
+														'1'); return false;">
+			서울특별시 관악구  난곡로 60, 6층601호 (신림동,산타플러스빌딩)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130004667',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 73.13㎡ 아파트형공장]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			185,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			148,000,000
+
+			<br/>
+			(80%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg6');return false;">
+<img alt="안내" id="idImg6" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	1회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130004667,2"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경4667<br/>
+</td>
+<td>
+			2<br/>
+			기타</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300046672" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130004667',
+														'2'); return false;">
+			서울특별시 관악구  난곡로 60, 6층602호 (신림동,산타플러스빌딩)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130004667',
+														 '2',
+														 '2'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 78.74㎡ 아파트형공장]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			199,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			159,200,000
+
+			<br/>
+			(80%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg7');return false;">
+<img alt="안내" id="idImg7" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	1회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130004667,3"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경4667<br/>
+</td>
+<td>
+			3<br/>
+			기타</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101300046673" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130004667',
+														'3'); return false;">
+			서울특별시 관악구  난곡로 60, 6층603호 (신림동,산타플러스빌딩)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130004667',
+														 '3',
+														 '3'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 73.13㎡ 아파트형공장]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			185,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			148,000,000
+
+			<br/>
+			(80%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg8');return false;">
+<img alt="안내" id="idImg8" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	1회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130102134,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경102134<br/>
+</td>
+<td>
+			1<br/>
+			기타</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301021341" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130102134',
+														'1'); return false;">
+			서울특별시 관악구  난우2길 5, 2층204호 (신림동,한나래15차)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130102134',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 35.61㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				- 재매각, 매수신청보증금 최저매각가격의 20% 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			211,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			22,656,000
+
+			<br/>
+			(10%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg9');return false;">
+<img alt="안내" id="idImg9" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	10회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130103960,3"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경103960<br/>
+			
+ 			2021타경104406<br/>2021타경1903<br/>2021타경104079<br/>2021타경104086<br/>2021타경104109<br/>2021타경104116<br/>2021타경104123<br/>2021타경3640<br/>2021타경110920<br/>2022타경107990<br/>2021타경104130<br/>2021타경104192<br/>2021타경105379<br/>2023타경117178<br/>(중복)<br/>
+			2021타경104420<br/>(병합)</td>
+<td>
+			3<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301039603" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130103960',
+														'3'); return false;">
+			서울특별시 관악구  신림로11길 121, 비동 4층401호</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130103960',
+														 '3',
+														 '5'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조
+28.17㎡]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			220,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			36,910,000
+
+			<br/>
+			(16%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg10');return false;">
+<img alt="안내" id="idImg10" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	8회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130103960,5"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경103960<br/>
+			
+ 			2021타경104406<br/>2021타경1903<br/>2021타경104079<br/>2021타경104086<br/>2021타경104109<br/>2021타경104116<br/>2021타경104123<br/>2021타경3640<br/>2021타경110920<br/>2022타경107990<br/>2021타경104130<br/>2021타경104192<br/>2021타경105379<br/>2023타경117178<br/>(중복)<br/>
+			2021타경104420<br/>(병합)</td>
+<td>
+			5<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301039605" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130103960',
+														'5'); return false;">
+			서울특별시 관악구  신림로11길 123-8, 4층401호</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130103960',
+														 '5',
+														 '7'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 28.53㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				특별매각조건 : 전세사기 피해자 우선매수권 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			214,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			87,654,000
+
+			<br/>
+			(40%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg11');return false;">
+<img alt="안내" id="idImg11" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	4회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130103960,10"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경103960<br/>
+			
+ 			2021타경104406<br/>2021타경1903<br/>2021타경104079<br/>2021타경104086<br/>2021타경104109<br/>2021타경104116<br/>2021타경104123<br/>2021타경3640<br/>2021타경110920<br/>2022타경107990<br/>2021타경104130<br/>2021타경104192<br/>2021타경105379<br/>2023타경117178<br/>(중복)<br/>
+			2021타경104420<br/>(병합)</td>
+<td>
+			10<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="2021013010396010" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130103960',
+														'10'); return false;">
+			서울특별시 관악구  신림로11길 123-8, 4층402호</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130103960',
+														 '10',
+														 '14'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 29.70㎡]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			222,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			37,246,000
+
+			<br/>
+			(16%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg12');return false;">
+<img alt="안내" id="idImg12" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	8회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130103960,16"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경103960<br/>
+			
+ 			2021타경104406<br/>2021타경1903<br/>2021타경104079<br/>2021타경104086<br/>2021타경104109<br/>2021타경104116<br/>2021타경104123<br/>2021타경3640<br/>2021타경110920<br/>2022타경107990<br/>2021타경104130<br/>2021타경104192<br/>2021타경105379<br/>2023타경117178<br/>(중복)<br/>
+			2021타경104420<br/>(병합)</td>
+<td>
+			16<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="2021013010396016" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130103960',
+														'16'); return false;">
+			서울특별시 관악구  신림로11길 123-8, 3층302호</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130103960',
+														 '16',
+														 '22'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 29.88㎡]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			224,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			73,400,000
+
+			<br/>
+			(32%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg13');return false;">
+<img alt="안내" id="idImg13" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	5회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130107030,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경107030<br/>
+</td>
+<td>
+			1<br/>
+			기타</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301070301" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130107030',
+														'1'); return false;">
+			서울특별시 관악구  봉천로17가길 16-16, 2층202호 (봉천동,드림캐슬)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130107030',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 60.74㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				-공부와의 차이 있음. 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			330,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			211,200,000
+
+			<br/>
+			(64%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg14');return false;">
+<img alt="안내" id="idImg14" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	13회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130107535,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경107535<br/>
+</td>
+<td>
+			1<br/>
+			아파트</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301075351" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130107535',
+														'1'); return false;">
+			서울특별시 종로구  지봉로12가길 4, 5층501호 (숭인동,숭인빌라)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130107535',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 29.72㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				본건은 4층 다세대주택위 증축된관계로 토지에대한 소유권없음.(등기사항전부증명서상 대지권등기 없음) 
+집합건축물대장상 창고시설을 주택으로 무단용도변경 사용으로 위법건축물로 표기되어있음.
+내부구조는 외부관찰, 건축물현황도등을 참고하였으므로 입찰시 확인요함.
+확정일자부 임차인있음. 보증금이 전액 배당되지 않으면 매수인이 인수하게됨. 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			92,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			4,046,000
+
+			<br/>
+			(4%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg15');return false;">
+<img alt="안내" id="idImg15" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	14회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130107849,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경107849<br/>
+</td>
+<td>
+			1<br/>
+			아파트</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301078491" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130107849',
+														'1'); return false;">
+			서울특별시 서초구  양재대로2길 90, 209동 10층1005호 (우면동,서초힐스)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130107849',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 84.95㎡]
+			 </div>
+</td>
+<td class="txtleft">
+</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			1,710,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			1,368,000,000
+
+			<br/>
+			(80%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매10계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', 'idImg16');return false;">
+<img alt="안내" id="idImg16" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-2714(제4별관 민사집행과)', '2024.03.06 10:00', '제4별관 211호 법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.03.06
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	1회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130109159,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경109159<br/>
+</td>
+<td>
+			1<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301091591" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130109159',
+														'1'); return false;">
+			서울특별시 동작구 사당동  419-152 씨에스하우스 5층503호</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130109159',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 29.21㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				전세권자가 신청채권자임.
+확정일자부 임차인있음. 보증금이 전액 배당되지 않으면 매수인이 인수하게됨
+본건은 집합건축물대장상 위반건축물로 등재되어 있음 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			290,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			12,754,000
+
+			<br/>
+			(4%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg17');return false;">
+<img alt="안내" id="idImg17" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	14회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl1">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20210130109319,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2021타경109319<br/>
+</td>
+<td>
+			1<br/>
+			다세대</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202101301093191" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20210130109319',
+														'1'); return false;">
+			서울특별시 동작구  성대로10길 62, 1층101호 (상도동,상도로지빌)</a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20210130109319',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[집합건물 철근콘크리트구조 29.25㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				집합건축물대장상 용도는 '사무소'이나 현장조사시 '주거용'으로 파악되었으니 입찰시 확인요함.
+확정일자부 임차인있음. 보증금이 전액 배당되지 않으면 매수인이 인수하게됨.
+특별매각조건 매수신청보증금 최저매각가격의 20% 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			187,000,000
+			</div>
+<div class="tbl_btm_line">
+
+			39,217,000
+
+			<br/>
+			(20%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg18');return false;">
+<img alt="안내" id="idImg18" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	7회 
+</div>
+</td>
+</tr>
+<tr class="Ltbl_list_lvl0">
+<td class="padding0"><input name="chk" type="checkbox" value="서울중앙지방법원,20220130001252,1"/></td>
+<td>
+			서울중앙지방법원<input name="boGbn" type="hidden" value="B"/><br/>
+			2022타경1252<br/>
+</td>
+<td>
+			1<br/>
+			근린시설</td>
+<td class="txtleft">
+<div class="tbl_btm_noline">
+<a href="#" name="202201300012521" onclick="javascript:detailSrch('서울중앙지방법원',
+														'20220130001252',
+														'1'); return false;">
+			서울특별시 관악구 신림동  254-238 </a>
+<a href="#" onclick="javascript:showPopupMap('서울중앙지방법원',
+														 '20220130001252',
+														 '1',
+														 '1'); return false;">
+<img alt="지도보기 팝업" src="/images/ic_map.gif"/></a>
+<br/>
+			
+			[토지 대 139㎡]
+			 </div>
+</td>
+<td class="txtleft">
+				일괄매각. 제시외 건물 포함
+근린생활시설 및 주택으로 지층(주택,휴게실), 1~4층(독서실)임 
+			</td>
+<td class="txtright">
+<div class="tbl_btm_noline">
+			1,643,299,750
+			</div>
+<div class="tbl_btm_line">
+
+			1,051,712,000
+
+			<br/>
+			(64%)
+			</div>
+</td>
+<td>
+<div class="tbl_btm_noline">
+			경매7계
+
+			<a href="#" onclick="showJpDeptInofTitle('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', 'idImg19');return false;">
+<img alt="안내" id="idImg19" onmouseout="sh_layers2('tel_layer','','hide',event)" onmouseover="showJpDeptInfo('530-1819(제4별관 민사집행과)', '2024.02.22 10:00', '4별관  211호 경매법정', event);" src="/images/ic_poll.gif" title="안내"/></a><br/>
+			2024.02.22
+			</div>
+<div class="tbl_btm_line">
+
+				       유찰	2회 
+</div>
+</td>
+</tr>
+</tbody>
+</table>                    </body>
+                    </html>
+                    
