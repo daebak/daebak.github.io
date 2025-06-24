@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>로그인</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">로그인</button>
+        </form>
+        <div class="social-login">
+            <p>SNS 계정으로 로그인</p>
+            <button class="social-button kakao">
+                <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오 로그인">
+                카카오 로그인
+            </button>
+            <button class="social-button google">
+                <img src="https://developers.google.com/identity/images/g-logo.png" alt="구글 로그인">
+                구글 로그인
+            </button>
+            <button class="social-button naver">
+                <img src="https://static.nid.naver.com/oauth/button_main.png" alt="네이버 로그인">
+                네이버 로그인
+            </button>
+            <button class="social-button apple">
+                <img src="https://appleid.cdn-apple.com/appleid/button?height=40&width=300&type=sign-in&color=black&border=false&border_radius=15&locale=ko_KR" alt="Apple 로그인">
+                Apple로 로그인
+            </button>
+        </div>
+    </div>
+</body>
+</html>
