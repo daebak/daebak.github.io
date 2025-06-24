@@ -117,8 +117,9 @@ h2 {
     border-color: #03C75A;
 }
 .social-button.naver img {
-    width: auto; /* 네이버 로고는 비율 유지를 위해 auto로 설정 */
-    height: 18px; /* 높이 조정 */
+    width: 18px; /* 너비 고정 */
+    height: 18px; /* 높이 고정 */
+    object-fit: contain; /* 비율 유지하며 채우기 */
 }
 
 
@@ -138,8 +139,9 @@ h2 {
 
 .social-button.apple img {
     filter: invert(1); /* 애플 로고가 검은색 배경에 잘 보이도록 색상 반전 */
-    width: auto;
-    height: 20px; /* 높이 조정 */
+    width: 20px; /* 너비 고정 */
+    height: 20px; /* 높이 고정 */
+    object-fit: contain; /* 비율 유지하며 채우기 */
 }
 
 
