@@ -1,0 +1,168 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.social-login p {
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 14px;
+}
+
+.social-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.social-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.social-button.kakao {
+    background-color: #FEE500;
+    color: #000000;
+    border-color: #FEE500;
+}
+
+.social-button.kakao:hover {
+    background-color: #f7d900;
+}
+
+.social-button.google {
+    background-color: #FFFFFF;
+    color: #757575;
+    border-color: #dddddd;
+}
+
+.social-button.google:hover {
+    background-color: #f8f8f8;
+    border-color: #cccccc;
+}
+
+.social-button.naver {
+    background-color: #03C75A;
+    color: white;
+    border-color: #03C75A;
+}
+.social-button.naver img {
+    width: 18px; /* 너비 고정 */
+    height: 18px; /* 높이 고정 */
+    object-fit: contain; /* 비율 유지하며 채우기 */
+}
+
+
+.social-button.naver:hover {
+    background-color: #02b350;
+}
+
+.social-button.apple {
+    background-color: #000000;
+    color: white;
+    border-color: #000000;
+}
+
+.social-button.apple:hover {
+    background-color: #333333;
+}
+
+.social-button.apple img {
+    filter: invert(1); /* 애플 로고가 검은색 배경에 잘 보이도록 색상 반전 */
+    width: 20px; /* 너비 고정 */
+    height: 20px; /* 높이 고정 */
+    object-fit: contain; /* 비율 유지하며 채우기 */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .login-button, .social-button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .social-button img {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+    }
+}
