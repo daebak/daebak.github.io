@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+
     <!-- Icons Library: Lucide -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
@@ -57,7 +57,7 @@
             padding: 6rem 0;
             overflow-x: hidden;
         }
-        
+
         @media (max-width: 768px) {
             section {
                 padding: 4rem 1rem;
@@ -103,7 +103,7 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
         }
-        
+
         .btn-outline {
             background: transparent;
             color: var(--white-color);
@@ -113,7 +113,7 @@
         .btn-outline:hover {
             background-color: var(--light-color);
         }
-        
+
         /* --- 애니메이션 스타일 (유지) --- */
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -157,7 +157,11 @@
         };
 
         const Icon = ({ name, color, size }) => {
-            useEffect(() => { lucide.createIcons(); }, [name]);
+            useEffect(() => {
+                if (lucide) {
+                    lucide.createIcons();
+                }
+            }, [name]);
             return <i data-lucide={name} style={{ color, width: size, height: size }}></i>;
         };
 
@@ -170,10 +174,10 @@
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
-            
+
             const navLinks = [
                 { name: 'HizBee소개', href: '#why-hizbee' },
-                { name: '요금안내', href: '#' },
+                { name: '요금안내', href: '#pricing' },
                 { name: '사용사례', href: '#' },
                 { name: '통계리포트', href: '#' },
             ];
@@ -203,7 +207,6 @@
                                 {navLinks.map((link) => <a key={link.name} href={link.href}>{link.name}</a>)}
                             </nav>
                             <div className="desktop-nav nav-buttons">
-                                <a href="login.html" className="btn btn-outline" style={{marginRight: "0.5rem"}}>로그인</a>
                                 <a href="#" className="btn btn-primary">무료체험</a>
                             </div>
                             <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -212,8 +215,7 @@
                             {isMenuOpen && (
                                 <div className="mobile-nav-menu">
                                     {navLinks.map((link) => <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.name}</a>)}
-                                    <a href="login.html" className="btn btn-outline" style={{marginTop: '1rem', textAlign:'center'}}>로그인</a>
-                                    <a href="#" className="btn btn-primary" style={{marginTop: '0.5rem', textAlign:'center'}}>무료체험</a>
+                                    <a href="#" className="btn btn-primary" style={{marginTop: '1rem', textAlign:'center'}}>무료체험</a>
                                 </div>
                             )}
                         </div>
@@ -224,7 +226,7 @@
                 </>
             );
         };
-        
+
         const HeroSection = () => (
             <section className="hero-section">
                 <style>{`
@@ -296,7 +298,7 @@
                 </section>
             );
         };
-        
+
         const CoreFeaturesSection = () => {
             const [ref, isVisible] = useAnimateOnScroll();
             return (
@@ -308,9 +310,9 @@
                          <div className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
                             <h2>히즈비의 핵심기능<br/>한눈에 보기</h2>
                         </div>
-                        <img 
-                            src="./소개4.png" 
-                            alt="히즈비 핵심기능" 
+                        <img
+                            src="./소개4.png"
+                            alt="히즈비 핵심기능"
                             className={`features-img animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}
                             style={{transitionDelay: '0.2s'}}
                         />
@@ -318,7 +320,118 @@
                 </section>
             );
         };
-        
+
+        const PricingSection = () => {
+            const [ref, isVisible] = useAnimateOnScroll();
+            const plans = [
+                {
+                    name: "베이직",
+                    price: "월 49,000원",
+                    features: [
+                        "GPT 최적화 질문 10개",
+                        "월 최대 100건 GPT 답변 노출",
+                        "기본 통계 리포트",
+                        "이메일 지원"
+                    ],
+                    buttonText: "베이직 플랜 시작",
+                    highlight: false
+                },
+                {
+                    name: "프로",
+                    price: "월 99,000원",
+                    features: [
+                        "GPT 최적화 질문 30개",
+                        "월 최대 500건 GPT 답변 노출",
+                        "상세 통계 리포트",
+                        "구글 블로그 연동",
+                        "우선 기술 지원"
+                    ],
+                    buttonText: "프로 플랜 시작",
+                    highlight: true
+                },
+                {
+                    name: "엔터프라이즈",
+                    price: "별도 문의",
+                    features: [
+                        "GPT 최적화 질문 무제한",
+                        "GPT 답변 노출 무제한",
+                        "맞춤형 통계 및 컨설팅",
+                        "API 접근 제공",
+                        "전담 매니저 지원"
+                    ],
+                    buttonText: "문의하기",
+                    highlight: false
+                }
+            ];
+
+            useEffect(() => {
+                if (lucide) {
+                    lucide.createIcons();
+                }
+            }, [plans, isVisible]); // Re-run if plans or visibility change
+
+            return (
+                <section id="pricing" ref={ref}> {/* id="pricing" will be used for navigation */}
+                    <style>{`
+                        .pricing-title-wrapper { text-align: center; margin-bottom: 4rem; }
+                        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: stretch; }
+                        .pricing-card { background-color: var(--light-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: all 0.3s ease; display: flex; flex-direction: column; }
+                        .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+                        .pricing-card.highlight { border-color: var(--primary-color); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+                        .pricing-card h3 { font-size: 1.8rem; color: var(--white-color); margin-bottom: 0.5rem; }
+                        .pricing-card .price { font-size: 2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 1.5rem; }
+                        .pricing-card .features-list { list-style: none; padding: 0; margin-bottom: 2rem; flex-grow: 1; }
+                        .pricing-card .features-list li { margin-bottom: 0.8rem; display: flex; align-items: center; color: var(--text-light); }
+                        .pricing-card .features-list li i { margin-right: 0.7rem; color: var(--primary-color); width: 20px; height: 20px; }
+                        .pricing-card .btn { width: 100%; margin-top: auto; }
+                        .highlight-badge { display: inline-block; background-color: var(--primary-color); color: var(--dark-color); padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 20px; position: absolute; top: -15px; right: 20px; }
+                        .pricing-card-header { position: relative; margin-bottom: 1rem;}
+
+                        @media (max-width: 992px) {
+                           .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+                        }
+
+                        @media (max-width: 768px) {
+                            .pricing-grid { grid-template-columns: 1fr; }
+                            .pricing-card { padding: 2rem; }
+                            .pricing-card h3 { font-size: 1.6rem; }
+                            .pricing-card .price { font-size: 1.8rem; }
+                        }
+                    `}</style>
+                    <div className="container">
+                        <div className={`pricing-title-wrapper animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
+                            <h2>합리적인 요금제로<br/>HizBee의 모든 기능을 활용하세요</h2>
+                            <p>당신의 비즈니스 성장에 꼭 맞는 플랜을 선택하세요.</p>
+                        </div>
+                        <div className="pricing-grid">
+                            {plans.map((plan, index) => (
+                                <div
+                                    key={plan.name}
+                                    className={`pricing-card ${plan.highlight ? 'highlight' : ''} animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}
+                                    style={{transitionDelay: `${index * 0.1 + 0.1}s`}}
+                                >
+                                    <div className="pricing-card-header">
+                                        <h3>{plan.name}</h3>
+                                        {plan.highlight && <span className="highlight-badge">추천</span>}
+                                    </div>
+                                    <p className="price">{plan.price}</p>
+                                    <ul className="features-list">
+                                        {plan.features.map(feature => (
+                                            <li key={feature}>
+                                                <Icon name="check-circle" size={20} /> {/* Using Icon component */}
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <a href="#" className={`btn ${plan.highlight ? 'btn-primary' : 'btn-outline'}`}>{plan.buttonText}</a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
         const FinalCTA = () => {
             const [ref, isVisible] = useAnimateOnScroll();
             return (
@@ -340,7 +453,7 @@
                 </section>
             );
         };
-        
+
         const App = () => (
             <>
                 <Header />
@@ -348,6 +461,7 @@
                     <HeroSection />
                     <WhyHizbeeSection />
                     <CoreFeaturesSection />
+                    <PricingSection />
                     <FinalCTA />
                 </main>
             </>
@@ -356,7 +470,13 @@
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);
         root.render(<App />);
+
+        // Call createIcons once after the initial render of App to process all icons.
+        if (lucide) {
+          lucide.createIcons();
+        }
     </script>
 </body>
 
 </html>
+
