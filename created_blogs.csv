@@ -1,0 +1,11 @@
+blog_id,creation_date,user_id
+1,2023-01-15,user_A
+2,2023-01-16,user_B
+3,2023-01-16,user_A
+4,2023-01-17,user_C
+5,2023-01-18,user_B
+6,2023-01-18,user_A
+7,2023-01-18,user_D
+8,2023-01-19,user_A
+9,2023-01-20,user_E
+10,2023-01-20,user_B
