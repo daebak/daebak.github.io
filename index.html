@@ -207,6 +207,7 @@
                                 {navLinks.map((link) => <a key={link.name} href={link.href}>{link.name}</a>)}
                             </nav>
                             <div className="desktop-nav nav-buttons">
+                                <a href="login.html" className="btn btn-outline">로그인</a>
                                 <a href="#" className="btn btn-primary">무료체험</a>
                             </div>
                             <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -215,7 +216,8 @@
                             {isMenuOpen && (
                                 <div className="mobile-nav-menu">
                                     {navLinks.map((link) => <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.name}</a>)}
-                                    <a href="#" className="btn btn-primary" style={{marginTop: '1rem', textAlign:'center'}}>무료체험</a>
+                                    <a href="login.html" className="btn btn-outline" style={{marginTop: '1rem', textAlign:'center'}}>로그인</a>
+                                    <a href="#" className="btn btn-primary" style={{marginTop: '0.5rem', textAlign:'center'}}>무료체험</a>
                                 </div>
                             )}
                         </div>
