@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HizBee | 결제 실패</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary-color: #38bdf8; /* 라이트 블루 */
+            --dark-color: #0b1120; /* 다크 네이비 배경 */
+            --light-color: #1e293b; /* 카드 등 보조 배경 */
+            --text-color: #e2e8f0; /* 기본 텍스트 (밝은 회색) */
+            --text-light: #94a3b8; /* 보조 텍스트 (회색) */
+            --border-color: #334155;
+            --white-color: #ffffff;
+            --error-color: #f87171; /* 실패 빨간색 */
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header-logo {
+            height: 30px;
+            margin-bottom: 2rem;
+        }
+        .container {
+            background-color: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        h1 {
+            color: var(--error-color); /* 실패 강조 */
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        .error-details {
+            background-color: var(--dark-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            font-size: 0.95em;
+            word-break: break-all;
+        }
+        .error-details strong {
+            color: var(--primary-color);
+            display: inline-block;
+            min-width: 100px;
+        }
+        .error-details span {
+            color: var(--text-color);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--white-color);
+            border: 1px solid var(--border-color);
+            margin-right: 1rem;
+        }
+        .btn-outline:hover {
+            background-color: var(--dark-color);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #38bdf8, #3b82f6);
+            color: var(--white-color);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        .footer-link {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .footer-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">
+        <img src="./아이콘(반반).png" alt="HizBee 로고" class="header-logo" />
+    </a>
+    <div class="container">
+        <h1>🚧 결제 실패</h1>
+        <p>결제를 완료하는 중 문제가 발생했습니다. 아래 오류 정보를 확인해주세요.</p>
+
+        <div class="error-details">
+            <p><strong>오류 코드:</strong> <span id="errorCodeDisplay"></span></p>
+            <p><strong>오류 메시지:</strong> <span id="errorMessageDisplay"></span></p>
+            <p><strong>주문 ID:</strong> <span id="orderIdDisplay"></span></p>
+        </div>
+
+        <a href="payment.html" id="retryButton" class="btn btn-outline">결제 다시 시도</a>
+        <a href="index.html" class="btn btn-primary">메인으로 돌아가기</a>
+    </div>
+    <div class="footer-link">
+        <p>문제가 지속될 경우 고객센터로 문의해주세요.</p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorCode = urlParams.get('code');
+        const errorMessage = urlParams.get('message');
+        const orderId = urlParams.get('orderId'); // payment.html에서 전달한 파라미터
+
+        const errorCodeDisplay = document.getElementById('errorCodeDisplay');
+        const errorMessageDisplay = document.getElementById('errorMessageDisplay');
+        const orderIdDisplay = document.getElementById('orderIdDisplay');
+        const retryButton = document.getElementById('retryButton');
+
+        errorCodeDisplay.textContent = errorCode || 'N/A';
+        errorMessageDisplay.textContent = decodeURIComponent(errorMessage) || '알 수 없는 오류가 발생했습니다.';
+        orderIdDisplay.textContent = orderId || 'N/A';
+
+        // '결제 다시 시도' 버튼에 이전 결제 시도의 주문 ID를 전달할 수도 있으나,
+        // 일반적으로는 새로운 주문으로 처리하므로, payment.html로 파라미터 없이 보내거나,
+        // 이전 페이지에서 플랜 정보를 다시 가져오도록 유도하는 것이 좋습니다.
+        // 여기서는 payment.html로 돌아가되, 어떤 플랜이었는지 정보가 없으므로 사용자가 다시 선택해야 합니다.
+        // 만약 orderId를 통해 이전 플랜 정보를 조회할 수 있는 백엔드가 있다면, 해당 정보를 포함하여 payment.html로 보낼 수 있습니다.
+        // 현재는 payment.html이 URL 파라미터로 plan, price, planName을 기대하므로, 이 정보 없이는 제대로 동작하지 않습니다.
+        // 가장 간단한 방법은 index.html로 보내는 것입니다.
+
+        // retryButton.href = `payment.html`; // 이렇게 하면 payment.html에서 정보 부족 오류 발생
+        // 더 나은 방법은 index.html로 보내서 다시 플랜을 선택하게 하는 것
+        retryButton.href = 'index.html';
+        // 또는, 만약 payment.html에서 전달받은 plan, price, planName을 failUrl에도 넘겼다면 재시도 가능
+        // 예: failUrl: `${baseUrl}/fail.html?orderId=${orderId}&code=${code}&message=${message}&plan=${plan}&price=${price}&planName=${planName}`
+        // const originalPlan = urlParams.get('plan');
+        // const originalPrice = urlParams.get('price');
+        // const originalPlanName = urlParams.get('planName');
+        // if (originalPlan && originalPrice && originalPlanName) {
+        //    retryButton.href = `payment.html?plan=${originalPlan}&price=${originalPrice}&planName=${originalPlanName}`;
+        // }
+
+
+        if (errorCode) {
+            console.error(`Payment failed: ${errorCode} - ${decodeURIComponent(errorMessage)} (Order ID: ${orderId})`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HizBee | 결제 성공</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        :root {
+            --primary-color: #38bdf8; /* 라이트 블루 */
+            --dark-color: #0b1120; /* 다크 네이비 배경 */
+            --light-color: #1e293b; /* 카드 등 보조 배경 */
+            --text-color: #e2e8f0; /* 기본 텍스트 (밝은 회색) */
+            --text-light: #94a3b8; /* 보조 텍스트 (회색) */
+            --border-color: #334155;
+            --white-color: #ffffff;
+            --success-color: #4ade80; /* 성공 초록색 */
+            --error-color: #f87171; /* 실패 빨간색 */
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header-logo {
+            height: 30px;
+            margin-bottom: 2rem;
+        }
+        .container {
+            background-color: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        h1 {
+            color: var(--success-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        .info-block {
+            background-color: var(--dark-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            font-size: 0.95em;
+        }
+        .info-block strong {
+            color: var(--primary-color);
+            display: inline-block;
+            min-width: 100px;
+        }
+        .info-block span {
+            color: var(--text-color);
+        }
+        .info-block .status-success {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        .info-block .status-error {
+            color: var(--error-color);
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #38bdf8, #3b82f6);
+            color: var(--white-color);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        #loadingMessage { display: block; margin-bottom: 1.5rem; color: var(--primary-color); font-weight: 500; }
+        #approvalResultBlock { display: none; }
+        .footer-link {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .footer-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">
+        <img src="./아이콘(반반).png" alt="HizBee 로고" class="header-logo" />
+    </a>
+    <div class="container">
+        <h1>결제 승인 처리 중</h1>
+        <p id="statusMessage">Toss Payments와 결제 정보를 확인하고 있습니다. 잠시만 기다려주세요...</p>
+
+        <div id="initialInfoBlock" class="info-block">
+            <p><strong>주문 ID:</strong> <span id="orderIdDisplay"></span></p>
+            <p><strong>결제 예정 금액:</strong> <span id="amountDisplay"></span> 원</p>
+            <p><strong>Payment Key:</strong> <span id="paymentKeyDisplay" style="word-break: break-all;"></span></p>
+        </div>
+
+        <p id="loadingMessage">서버로 승인 요청을 보내는 중입니다...</p>
+
+        <div id="approvalResultBlock" class="info-block">
+            <p><strong>승인 상태:</strong> <span id="approvalStatusDisplay"></span></p>
+            <p><strong>주문명:</strong> <span id="orderNameDisplay"></span></p>
+            <p><strong>최종 결제 금액:</strong> <span id="finalAmountDisplay"></span></p>
+            <p><strong>결제 수단:</strong> <span id="paymentMethodDisplay"></span></p>
+            <p id="errorCodeBlock" style="display:none;"><strong>오류 코드:</strong> <span id="errorCodeDisplay" class="status-error"></span></p>
+            <p id="errorMessageBlock" style="display:none;"><strong>오류 메시지:</strong> <span id="errorMessageDisplay" class="status-error"></span></p>
+        </div>
+
+        <a href="index.html" id="homeButton" class="btn btn-primary" style="display:none;">메인 페이지로 돌아가기</a>
+    </div>
+     <div class="footer-link">
+        <a href="payment.html" id="retryLink" style="display:none;">&larr; 결제 다시 시도하기</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentKey = urlParams.get('paymentKey'); // Toss Payments가 successUrl에 추가하는 파라미터
+        const orderIdFromQuery = urlParams.get('orderId'); // payment.html에서 전달한 파라미터
+        const amountFromQuery = urlParams.get('amount');   // payment.html에서 전달한 파라미터
+
+        // 화면 요소
+        const statusMessage = document.getElementById('statusMessage');
+        const orderIdDisplay = document.getElementById('orderIdDisplay');
+        const amountDisplay = document.getElementById('amountDisplay');
+        const paymentKeyDisplay = document.getElementById('paymentKeyDisplay');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const approvalResultBlock = document.getElementById('approvalResultBlock');
+        const approvalStatusDisplay = document.getElementById('approvalStatusDisplay');
+        const orderNameDisplay = document.getElementById('orderNameDisplay');
+        const finalAmountDisplay = document.getElementById('finalAmountDisplay');
+        const paymentMethodDisplay = document.getElementById('paymentMethodDisplay');
+        const errorCodeBlock = document.getElementById('errorCodeBlock');
+        const errorCodeDisplay = document.getElementById('errorCodeDisplay');
+        const errorMessageBlock = document.getElementById('errorMessageBlock');
+        const errorMessageDisplay = document.getElementById('errorMessageDisplay');
+        const homeButton = document.getElementById('homeButton');
+        const retryLink = document.getElementById('retryLink');
+        const h1Title = document.querySelector('h1');
+
+        // 초기 정보 표시
+        orderIdDisplay.textContent = orderIdFromQuery || 'N/A';
+        amountDisplay.textContent = amountFromQuery ? parseInt(amountFromQuery).toLocaleString() : 'N/A';
+        paymentKeyDisplay.textContent = paymentKey || '정보 없음 (Toss Payments로부터 전달되지 않음)';
+
+        async function approvePayment() {
+            if (!paymentKey || !orderIdFromQuery || !amountFromQuery) {
+                h1Title.textContent = '결제 정보 오류';
+                h1Title.style.color = 'var(--error-color)';
+                statusMessage.textContent = '결제 승인에 필요한 정보가 올바르게 전달되지 않았습니다. 이전 페이지로 돌아가 다시 시도해주세요.';
+                loadingMessage.style.display = 'none';
+                homeButton.style.display = 'inline-block';
+                retryLink.href = `payment.html`; // 파라미터 없이 payment.html로 (사용자가 다시 입력해야 함)
+                retryLink.style.display = 'inline-block';
+                console.error('Missing paymentKey, orderId, or amount for approval.');
+                return;
+            }
+
+            // 테스트 시크릿 키 (실제 환경에서는 서버에서 안전하게 관리)
+            const secretKey = "test_sk_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+            const encodedSecretKey = btoa(`${secretKey}:`); // 브라우저 환경이므로 btoa 사용
+
+            try {
+                // 실제 Toss Payments 승인 API를 호출하는 대신 시뮬레이션합니다.
+                // 백엔드 없이 프론트에서 직접 Toss API를 호출하는 것은 보안상 매우 위험하며, CORS 정책에 의해 차단됩니다.
+
+                loadingMessage.textContent = '결제 승인 시뮬레이션 중... (실제 API 호출은 백엔드에서)';
+                await new Promise(resolve => setTimeout(resolve, 2500)); // 시뮬레이션 딜레이
+
+                const isSuccess = Math.random() > 0.2; // 80% 성공 확률 시뮬레이션
+                let simulationResponse;
+
+                if (isSuccess) {
+                    simulationResponse = {
+                        status: "DONE", // 실제 성공 시 주요 상태
+                        orderId: orderIdFromQuery,
+                        orderName: `플랜 ${orderIdFromQuery.slice(-4)} 구독 (시뮬레이션)`,
+                        totalAmount: parseInt(amountFromQuery),
+                        method: "카드", // 예시
+                        card: { company: "시뮬레이션 카드사", number: "1234-****-****-5678" },
+                        paymentKey: paymentKey // 받은 paymentKey 다시 포함
+                    };
+
+                    h1Title.textContent = '🎉 결제 승인 완료';
+                    h1Title.style.color = 'var(--success-color)';
+                    statusMessage.textContent = '고객님의 결제가 성공적으로 처리되었습니다.';
+                    approvalStatusDisplay.textContent = '승인 완료 (시뮬레이션)';
+                    approvalStatusDisplay.className = 'status-success';
+                    orderNameDisplay.textContent = simulationResponse.orderName;
+                    finalAmountDisplay.textContent = simulationResponse.totalAmount.toLocaleString() + ' 원';
+                    paymentMethodDisplay.textContent = `${simulationResponse.method} (${simulationResponse.card.company} ${simulationResponse.card.number})`;
+                    console.log("결제 승인 성공 (시뮬레이션):", simulationResponse);
+
+                } else {
+                    simulationResponse = {
+                        code: "PAYMENT_REJECTED_SIMULATED",
+                        message: "카드 한도 초과 또는 사용 불가 카드입니다 (시뮬레이션).",
+                        orderId: orderIdFromQuery
+                    };
+
+                    h1Title.textContent = '🚧 결제 승인 실패';
+                    h1Title.style.color = 'var(--error-color)';
+                    statusMessage.textContent = '결제 승인 중 문제가 발생했습니다. 아래 내용을 확인해주세요.';
+                    approvalStatusDisplay.textContent = '승인 실패 (시뮬레이션)';
+                    approvalStatusDisplay.className = 'status-error';
+                    orderNameDisplay.textContent = `플랜 ${orderIdFromQuery.slice(-4)} 구독 (시뮬레이션)`;
+                    finalAmountDisplay.textContent = parseInt(amountFromQuery).toLocaleString() + ' 원 (결제 실패)';
+                    paymentMethodDisplay.textContent = 'N/A';
+
+                    errorCodeBlock.style.display = 'block';
+                    errorMessageBlock.style.display = 'block';
+                    errorCodeDisplay.textContent = simulationResponse.code;
+                    errorMessageDisplay.textContent = simulationResponse.message;
+
+                    retryLink.href = `payment.html?plan=${encodeURIComponent('이전 플랜')}&price=${amountFromQuery}&planName=${encodeURIComponent('이전 플랜 구독')}`; // 이전 정보로 재시도 링크 (정확한 plan, planName 필요)
+                    retryLink.style.display = 'inline-block';
+                    console.error("결제 승인 실패 (시뮬레이션):", simulationResponse);
+                }
+
+            } catch (error) {
+                h1Title.textContent = '🚧 시스템 오류';
+                h1Title.style.color = 'var(--error-color)';
+                statusMessage.textContent = '결제 승인 처리 중 예기치 않은 오류가 발생했습니다.';
+                approvalStatusDisplay.textContent = '시스템 오류';
+                approvalStatusDisplay.className = 'status-error';
+                errorMessageBlock.style.display = 'block';
+                errorMessageDisplay.textContent = `오류 내용: ${error.message}. 관리자에게 문의하세요.`;
+                console.error('결제 승인 API 호출 시뮬레이션 중 예외 발생:', error);
+            } finally {
+                loadingMessage.style.display = 'none';
+                approvalResultBlock.style.display = 'block';
+                homeButton.style.display = 'inline-block';
+            }
+        }
+
+        // 페이지 로드 시 결제 승인 함수 자동 호출
+        approvePayment();
+    </script>
+</body>
+</html>
