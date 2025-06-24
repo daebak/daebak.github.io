@@ -40,5 +40,47 @@
             </button>
         </div>
     </div>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
+    integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01" crossorigin="anonymous"></script>
+    <script>
+        // 여기에 카카오 앱의 JavaScript 키를 입력하세요.
+        // Kakao.init('YOUR_JAVASCRIPT_KEY'); // 실제 키로 교체해야 합니다.
+        // Kakao.isInitialized(); // SDK 초기화 확인 (선택 사항)
+
+        // 임시로 실제 키 없이 초기화 (오류 발생 가능, 실제 키 필요)
+        try {
+            if (!Kakao.isInitialized()) {
+                 // Kakao.init('YOUR_JAVASCRIPT_KEY'); // << 여기에 실제 JavaScript 키를 넣어주세요.
+                 // 개발 및 테스트 목적으로는 우선 키 없이 진행하나, 실제 동작을 위해서는 반드시 키가 필요합니다.
+                 // alert("카카오 SDK가 초기화되었습니다. (테스트 모드 - 실제 키 필요)");
+            }
+        } catch(e) {
+            console.error("카카오 SDK 초기화 중 오류 발생:", e);
+            // alert("카카오 SDK 초기화에 실패했습니다. JavaScript 키를 확인해주세요.");
+        }
+
+        const kakaoLoginButton = document.querySelector('.social-button.kakao');
+        if (kakaoLoginButton) {
+            kakaoLoginButton.addEventListener('click', function() {
+                // Kakao.init이 정상적으로 호출되었다고 가정합니다 (실제 키 필요).
+                if (typeof Kakao !== 'undefined' && Kakao.isInitialized && Kakao.isInitialized()) {
+                    Kakao.Auth.login({
+                        success: function(authObj) {
+                            console.log(authObj);
+                            // 로그인 성공 시, authObj.access_token을 서버로 보내 사용자 정보 조회 및 로그인 처리
+                            alert('카카오 로그인 성공! 토큰: ' + authObj.access_token);
+                            // 예: window.location.href = '/auth/kakao/callback?token=' + authObj.access_token;
+                        },
+                        fail: function(err) {
+                            console.error(err);
+                            alert('카카오 로그인 실패: ' + JSON.stringify(err));
+                        },
+                    });
+                } else {
+                    alert('카카오 SDK가 초기화되지 않았습니다. JavaScript 키를 확인하고, Kakao.init()을 호출해주세요.');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
