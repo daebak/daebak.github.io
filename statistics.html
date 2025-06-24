@@ -55,6 +55,71 @@
         <p style="margin-top: 2rem;">
             <a href="index.html">&larr; 메인 페이지로 돌아가기</a>
         </p>
+
+        <h2 style="margin-top: 3rem; text-align: center; color: #e2e8f0;">블로그 글 일별 클릭 수</h2>
+        <div class="chart-container" style="position: relative; margin: 1.5rem auto; padding:1.5rem; background-color: #162133; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.25); width: 100%; max-width: 700px;">
+            <canvas id="blogClickChart"></canvas>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const blogClickCtx = document.getElementById('blogClickChart');
+
+        // Sample Data
+        const blogPostLabels = ['10/1', '10/2', '10/3', '10/4', '10/5', '10/6', '10/7', '10/8', '10/9', '10/10'];
+        const blogPostClickData = [12, 19, 15, 22, 18, 25, 20, 28, 23, 30];
+
+        new Chart(blogClickCtx, {
+            type: 'line',
+            data: {
+                labels: blogPostLabels,
+                datasets: [{
+                    label: '일별 클릭 수',
+                    data: blogPostClickData,
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#38bdf8',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#38bdf8',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#94a3b8' // Y-axis labels color
+                        },
+                        grid: {
+                            color: 'rgba(148, 163, 184, 0.2)' // Y-axis grid lines color
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#94a3b8' // X-axis labels color
+                        },
+                        grid: {
+                            color: 'rgba(148, 163, 184, 0.2)' // X-axis grid lines color
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e2e8f0' // Legend text color
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
