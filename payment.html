@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HizBee | 결제하기</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Toss Payments SDK -->
+    <script src="https://js.tosspayments.com/v1"></script>
+    <style>
+        :root {
+            --primary-color: #38bdf8; /* 라이트 블루 */
+            --dark-color: #0b1120; /* 다크 네이비 배경 */
+            --light-color: #1e293b; /* 카드 등 보조 배경 */
+            --text-color: #e2e8f0; /* 기본 텍스트 (밝은 회색) */
+            --text-light: #94a3b8; /* 보조 텍스트 (회색) */
+            --border-color: #334155;
+            --white-color: #ffffff;
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header-logo {
+            height: 30px;
+            margin-bottom: 2rem;
+        }
+        .container {
+            background-color: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        h1 {
+            color: var(--white-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        .plan-info {
+            background-color: var(--dark-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        .plan-info strong {
+            color: var(--primary-color);
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #38bdf8, #3b82f6);
+            color: var(--white-color);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
+        }
+        .error-message {
+            color: #f87171;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+        .footer-link {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        .footer-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">
+        <img src="./아이콘(반반).png" alt="HizBee 로고" class="header-logo" />
+    </a>
+    <div class="container">
+        <h1>결제 진행</h1>
+        <p>선택하신 플랜으로 결제를 진행합니다.</p>
+
+        <div class="plan-info">
+            <p><strong>플랜 이름:</strong> <span id="planNameDisplay"></span></p>
+            <p><strong>결제 금액:</strong> <span id="priceDisplay"></span> 원</p>
+        </div>
+
+        <button id="paymentButton" class="btn btn-primary">결제하기</button>
+        <p id="errorMessage" class="error-message" style="display:none;"></p>
+    </div>
+    <div class="footer-link">
+        <a href="index.html">&larr; 이전 페이지로 돌아가기</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const plan = urlParams.get('plan'); // e.g., '베이직', '프로'
+        const price = urlParams.get('price'); // e.g., 49000
+        const planName = urlParams.get('planName'); // e.g., '베이직 플랜 구독'
+
+        const planNameDisplay = document.getElementById('planNameDisplay');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const paymentButton = document.getElementById('paymentButton');
+        const errorMessageElement = document.getElementById('errorMessage');
+
+        if (plan && price && planName) {
+            planNameDisplay.textContent = decodeURIComponent(plan);
+            priceDisplay.textContent = parseInt(price).toLocaleString();
+            // 결제 버튼 로직은 다음 단계에서 구현
+        } else {
+            paymentButton.disabled = true;
+            paymentButton.style.opacity = 0.5;
+            paymentButton.textContent = '결제 정보 누락';
+            planNameDisplay.textContent = 'N/A';
+            priceDisplay.textContent = 'N/A';
+            errorMessageElement.textContent = '오류: 플랜 정보가 올바르게 전달되지 않았습니다. 이전 페이지로 돌아가 다시 시도해주세요.';
+            errorMessageElement.style.display = 'block';
+            console.error('Missing URL parameters for payment.');
+        }
+
+        paymentButton.addEventListener('click', () => {
+            if (!plan || !price || !planName) {
+                errorMessageElement.textContent = '결제 정보가 유효하지 않아 진행할 수 없습니다.';
+                errorMessageElement.style.display = 'block';
+                return;
+            }
+
+            const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"; // 테스트 클라이언트 키
+            const tossPayments = TossPayments(clientKey);
+            const orderId = new Date().getTime().toString(); // 고유한 주문 ID 생성
+
+            // successUrl과 failUrl을 현재 도메인을 기준으로 설정합니다.
+            const baseUrl = window.location.origin;
+
+            tossPayments.requestPayment('카드', { // 또는 다른 결제수단
+                amount: parseInt(price),
+                orderId: orderId,
+                orderName: decodeURIComponent(planName),
+                customerName: '고객님', // 실제 서비스에서는 사용자 식별 정보 사용
+                // successUrl로 orderId와 amount를 전달하여 success.html에서 승인 시 사용할 수 있도록 합니다.
+                successUrl: `${baseUrl}/success.html?orderId=${orderId}&amount=${price}`,
+                failUrl: `${baseUrl}/fail.html?orderId=${orderId}`,
+            })
+            .catch(function (error) {
+                console.error("결제 요청 실패:", error);
+                errorMessageElement.textContent = `결제 요청에 실패했습니다: ${error.message}`;
+                errorMessageElement.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
