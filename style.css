@@ -1,26 +1,28 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4; /* 배경색 확인용 */
+html, body { /* html 태그에도 스타일 적용 */
+    height: 100%; /* body의 min-height:100vh가 올바르게 작동하도록 */
     margin: 0;
-    padding: 20px;
+    padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center; /* 세로 중앙 */
+    min-height: 100%; /* html, body 높이 100%를 기준으로 */
+    background-color: #f0f2f5;
+}
+
 .login-container {
-    background-color: #fff; /* 배경색 확인용 */
-    padding: 30px;
+    background-color: #ffffff;
+    padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 400px; /* 로그인 컨테이너의 최대 너비 */
+    max-width: 400px;
     box-sizing: border-box;
-    /* text-align: center; 제거, .social-login에서 align-items:center로 처리 */
-    margin: 20px; /* body의 padding과 별개로 컨테이너 자체의 마진 추가 (디버깅용) */
+    /* margin: auto; /* body가 flex 컨테이너이므로, 자식인 login-container는 align-items, justify-content에 의해 중앙 정렬됨 */
 }
 
 h2 {
@@ -164,10 +166,11 @@ h2 {
     text-decoration: none !important;
 }
 #naverIdLogin_loginButton img {
-    height: 18px !important;
-    width: auto !important;
+    height: 20px !important;
+    width: 20px !important;
     margin-right: 8px !important;
-    object-fit: contain;
+    object-fit: contain; /* 이미지 비율 유지 */
+    /* vertical-align: middle; /* display:flex 사용 시 불필요 */
 }
 
 /* 기존 .social-button.naver 스타일은 이제 사용되지 않으므로 주석 처리하거나 삭제 가능 */
