@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
 </head>
 <body>
     <div class="login-container">
@@ -47,10 +48,14 @@
                 네이버 로그인
             </button>
             -->
-            <button class="social-button apple">
+            <!-- Apple 로그인 버튼 (Apple 가이드라인에 따라 div로 생성) -->
+            <div id="appleid-signin" data-color="black" data-border="true" data-type="sign-in" style="width: 100%; height: 40px; margin-bottom: 10px; cursor: pointer;"></div>
+            <!-- 기존 Apple 버튼은 숨김 처리 또는 제거. 여기서는 appleid-signin div가 역할을 대신함.
+            <button class="social-button apple" style="display: none;">
                 <img src="https://appleid.cdn-apple.com/appleid/button?height=40&width=300&type=sign-in&color=black&border=false&border_radius=15&locale=ko_KR" alt="Apple 로그인">
                 Apple로 로그인
             </button>
+            -->
         </div>
     </div>
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
@@ -183,14 +188,100 @@
             });
         });
 
+        // Apple 로그인 초기화
+        try {
+            AppleID.auth.init({
+                clientId: '[YOUR_SERVICE_ID]', // 중요: 실제 Service ID로 교체 필요
+                scope: 'name email', // 요청할 사용자 정보 범위
+                redirectURI: 'https://daebak.github.io/login.html', // 중요: 실제 Redirect URI로 교체 필요 (Apple Developer 설정과 일치)
+                state: '[CSRF_STATE_STRING]', // CSRF 공격 방지를 위한 임의의 문자열 (서버에서 생성 및 검증 권장)
+                usePopup: true // 팝업 모드 사용 (false로 하면 리디렉션 방식)
+            });
+        } catch (e) {
+            console.error("AppleID.auth.init error", e);
+            // Apple JS SDK 로드 실패 또는 기타 초기화 오류 처리
+        }
+
+        // Apple 로그인 버튼 클릭 이벤트 핸들러 (새로운 div 방식)
+        const appleSignInButton = document.getElementById('appleid-signin');
+        if (appleSignInButton) {
+            appleSignInButton.addEventListener('click', async () => {
+                console.log("Apple 로그인 시도. clientId: '[YOUR_SERVICE_ID]' (플레이스홀더 값). 실제 동작을 위해서는 Apple Developer 정보 설정 및 서버 측 구현이 필요합니다.");
+                // 실제 Apple Developer 정보가 설정되지 않았으므로, signIn() 호출은 주석 처리합니다.
+                // 아래 코드는 실제 정보가 입력되었을 때 활성화할 수 있습니다.
+                /*
+                if (AppleID.auth.isInitialized()) { // SDK 초기화 확인
+                    try {
+                        const data = await AppleID.auth.signIn();
+                        // 성공 시 data 객체에는 usePopup 설정에 따라 authorization code 또는 id_token 등이 포함됩니다.
+                        // 이 데이터를 서버로 보내 검증하고 사용자 정보를 최종적으로 받아야 합니다.
+                        console.log("Apple Sign In Success (Raw Data from Frontend):", data);
+
+                        if (data.authorization) {
+                            console.log("Authorization Code:", data.authorization.code);
+                            console.log("ID Token (if available):", data.authorization.id_token);
+                            // 중요: id_token이 여기서 제공되더라도, 반드시 서버에서 Apple의 공개키로 검증해야 합니다.
+                            // 클라이언트에서 디코딩하여 사용하는 것은 안전하지 않습니다.
+                            alert("Apple 로그인 시도 성공 (프론트엔드). 서버에서 최종 검증 및 사용자 정보 처리가 필요합니다.\nID 토큰 (일부): " + (data.authorization.id_token ? data.authorization.id_token.substring(0, 30) + "..." : "N/A"));
+
+                            // 사용자 정보 (이름, 이메일)는 첫 로그인 시 user 객체로 올 수 있음
+                            if (data.user) {
+                                console.log("User object (first time login):", data.user);
+                                const name = data.user.name ? `${data.user.name.firstName} ${data.user.name.lastName}` : "N/A";
+                                const email = data.user.email || "N/A";
+                                alert(`Apple 사용자 정보 (첫 로그인 시):\n이름: ${name}\n이메일: ${email}`);
+                            }
+                        } else {
+                            console.log("Apple Sign In Success, but no authorization data found in response:", data);
+                            alert("Apple 로그인 정보 수신 (프론트엔드). 서버 처리가 필요합니다.");
+                        }
+                        // 여기에 서버로 data.authorization 객체를 보내는 로직 추가
+                    } catch (error) {
+                        // error 객체는 에러 코드와 설명을 포함할 수 있습니다. (예: "popup_closed_by_user")
+                        console.error("Apple Sign In Error (Frontend):", error);
+                        if (typeof error === 'object' && error !== null && error.error) {
+                            alert("Apple 로그인 오류 (프론트엔드): " + error.error);
+                        } else {
+                            alert("Apple 로그인 중 오류가 발생했습니다 (프론트엔드).");
+                        }
+                    }
+                } else {
+                    alert("Apple 로그인 SDK가 초기화되지 않았습니다. clientId 등 설정을 확인하세요.");
+                    console.error("AppleID.auth is not initialized. Check configuration (clientId, etc).");
+                }
+                */
+               // 현재는 실제 호출 대신 알림만 표시
+               alert("Apple 로그인 버튼이 클릭되었습니다. 실제 Apple 로그인을 위해서는 Apple Developer 계정 정보 입력 및 서버 측 구현이 완료되어야 합니다. 현재는 실제 로그인 로직이 비활성화되어 있습니다.");
+            });
+        }
+
     </script>
-    <div style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
+    <!-- 로그아웃 링크 숨김 처리 요청에 따라 style="display:none;" 추가 -->
+    <div style="text-align: center; margin-top: 20px; margin-bottom: 10px; display:none;">
         <a href="#" onclick="signOut();">Google 로그아웃</a>
+        <span style="margin: 0 10px;">|</span>
+        <a href="#" onclick="naverLogout();">네이버 로그아웃 (안내)</a>
+        <span style="margin: 0 10px;">|</span>
+        <a href="#" onclick="appleLogout();">Apple 로그아웃 (안내)</a>
     </div>
-    <!-- 네이버 로그아웃은 명시적 SDK 함수가 없으므로, 사용자 안내 또는 쿠키/세션 방식 고려 -->
-    <!-- 여기서는 간단히 네이버 메인으로 가는 링크를 추가하여 사용자가 직접 로그아웃하도록 유도 -->
-    <div style="text-align: center; margin-bottom: 20px;">
-        <a href="https://nid.naver.com/nidlogin.logout" target="_blank" title="새 창에서 네이버 로그아웃">네이버 계정 로그아웃 (네이버 사이트)</a>
-    </div>
+    <script>
+        // ... 기존 스크립트 ...
+
+        function naverLogout() {
+            alert("네이버 로그아웃은 네이버 웹사이트에서 직접 수행해야 합니다. 새 창으로 네이버 로그아웃 페이지를 엽니다.");
+            window.open('https://nid.naver.com/nidlogin.logout', '_blank');
+            // 추가적으로 애플리케이션 자체의 세션/쿠키 정리 로직이 있다면 여기에 추가
+        }
+
+        function appleLogout() {
+            // Apple Sign In JS에는 명시적인 signOut 함수가 없습니다.
+            // 애플리케이션 자체의 세션/쿠키를 정리하고, 사용자에게 Apple 계정 페이지에서
+            // 앱 권한을 제거할 수 있음을 안내할 수 있습니다.
+            alert("Apple 로그아웃은 애플리케이션 세션 정리 후, 필요한 경우 Apple 계정 설정에서 앱 권한을 해제해야 합니다. 현재는 클라이언트 세션만 초기화합니다 (구현된 경우).");
+            // 예: 애플리케이션 관련 로컬 스토리지/세션 정보 삭제
+            // localStorage.removeItem('appleUserToken');
+            console.log("Apple 로그아웃 처리 (클라이언트 측 세션 정리 가정).");
+        }
+    </script>
 </body>
 </html>
