@@ -22,6 +22,15 @@
             </div>
             <button type="submit" class="login-button">로그인</button>
         </form>
+        <script>
+            document.getElementById('login-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // 폼 기본 제출 동작 방지
+                // 실제 로그인 로직은 여기에 구현 (예: 서버로 이메일, 비밀번호 전송)
+                // 지금은 임시로 로그인 성공으로 간주하고 main.html로 이동
+                alert('로그인 시도 (임시)');
+                window.location.href = 'main.html';
+            });
+        </script>
         <div class="social-login">
             <p>SNS 계정으로 로그인</p>
             <button class="social-button kakao">
@@ -77,7 +86,8 @@
                             console.log(authObj);
                             // 로그인 성공 시, authObj.access_token을 서버로 보내 사용자 정보 조회 및 로그인 처리
                             alert('카카오 로그인 성공! 토큰: ' + authObj.access_token);
-                            // 예: window.location.href = '/auth/kakao/callback?token=' + authObj.access_token;
+                            // 로그인 성공 후 main.html로 리디렉션
+                            window.location.href = 'main.html';
                         },
                         fail: function(err) {
                             console.error(err);
@@ -100,8 +110,8 @@
             // 로그인 성공 후 추가 작업 (예: 사용자에게 알림, 페이지 리디렉션)
             alert('Google 로그인 성공! \n이름: ' + profile.getName() + '\n이메일: ' + profile.getEmail());
 
-            // 예시: 로그인 성공 후 index.html로 리디렉션
-            // window.location.href = 'index.html';
+            // 로그인 성공 후 main.html로 리디렉션
+            window.location.href = 'main.html';
 
             // 실제 애플리케이션에서는 ID 토큰을 백엔드로 보내 인증합니다.
             // var id_token = googleUser.getAuthResponse().id_token;

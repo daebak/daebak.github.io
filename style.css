@@ -182,3 +182,151 @@ h2 {
         margin-right: 8px;
     }
 }
+
+/* 메인 화면 스타일 */
+header {
+    background-color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    position: fixed; /* 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000; /* 다른 요소들 위에 표시 */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.header-right .username {
+    margin-right: 1rem;
+    font-size: 0.9rem;
+}
+
+.logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+main {
+    padding: 1rem;
+    margin-top: 70px; /* 헤더 높이만큼 마진 추가 */
+}
+
+.module, .actions, .notifications {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.module h2, .actions h2, .notifications h2 {
+    margin-top: 0;
+    color: #333; /* 제목 색상 변경 */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+    font-size: 1.2rem; /* 제목 폰트 크기 조정 */
+}
+
+.module-status p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem; /* 폰트 크기 조정 */
+}
+
+.status-active {
+    color: #4CAF50; /* 활성 상태 색상 변경 */
+    font-weight: bold;
+}
+
+.module-settings-button, .action-button {
+    background-color: #007bff; /* 버튼 색상 변경 */
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem; /* 버튼 패딩 조정 */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9rem; /* 버튼 폰트 크기 조정 */
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 1rem;
+    margin-right: 0.5rem; /* 버튼 간 간격 */
+    transition: background-color 0.3s ease;
+}
+
+.module-settings-button:hover, .action-button:hover {
+    background-color: #0056b3; /* 버튼 호버 색상 변경 */
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap; /* 버튼이 많을 경우 다음 줄로 넘김 */
+}
+
+
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* 기본 마진 제거 */
+}
+
+.notification-list li {
+    padding: 0.8rem 0; /* 알림 항목 패딩 조정 */
+    border-bottom: 1px solid #f0f0f0; /* 구분선 색상 변경 */
+    font-size: 0.9rem; /* 폰트 크기 조정 */
+}
+
+.notification-list li:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem; /* 푸터 패딩 조정 */
+    background-color: #343a40; /* 푸터 배경색 변경 */
+    color: #f8f9fa; /* 푸터 글자색 변경 */
+    /* position: relative; 제거 또는 static으로 변경하여 main 콘텐츠 아래에 오도록 함 */
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 2rem; /* 메인 콘텐츠와의 간격 */
+}
+
+/* login.html과 main.html 모두에 적용될 body 스타일 수정 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 폰트 변경 */
+    margin: 0;
+    background-color: #f8f9fa; /* 배경색 변경 */
+    color: #343a40; /* 기본 글자색 변경 */
+    display: block; /* flex 관련 속성 제거 또는 재정의 */
+    justify-content: normal; /* flex 관련 속성 제거 또는 재정의 */
+    align-items: normal; /* flex 관련 속성 제거 또는 재정의 */
+    min-height: auto; /* flex 관련 속성 제거 또는 재정의 */
+    padding: 0; /* body의 기본 패딩 제거 */
+    box-sizing: border-box;
+}
