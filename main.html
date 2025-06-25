@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인 화면</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="hizbee-logo.png" alt="HizBee 로고" class="logo">
+            <h1>HizBee</h1>
+        </div>
+        <div class="header-right">
+            <span class="username">사용자 이름</span>
+            <button class="logout-button">로그아웃</button>
+        </div>
+    </header>
+    <main>
+        <section class="module">
+            <h2>모듈 관리</h2>
+            <div class="module-status">
+                <p>현재 연결된 모듈: <span class="module-name">모듈 A</span></p>
+                <p>상태: <span class="status-active">활성</span></p>
+            </div>
+            <button class="module-settings-button">모듈 설정</button>
+        </section>
+        <section class="actions">
+            <h2>빠른 작업</h2>
+            <div class="action-buttons">
+                <button class="action-button">데이터 분석</button>
+                <button class="action-button">보고서 생성</button>
+                <button class="action-button">사용자 관리</button>
+                <button class="action-button">시스템 설정</button>
+            </div>
+        </section>
+        <section class="notifications">
+            <h2>알림</h2>
+            <ul class="notification-list">
+                <li>새로운 데이터가 입력되었습니다.</li>
+                <li>모듈 A의 펌웨어 업데이트가 필요합니다.</li>
+                <li>오후 3시에 시스템 점검이 예정되어 있습니다.</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 HizBee. All rights reserved.</p>
+    </footer>
+</body>
+</html>
