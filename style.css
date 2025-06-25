@@ -435,42 +435,86 @@ body {
     max-height: 0; /* 기본적으로 숨김 */
     overflow: hidden;
     transition: max-height 0.3s ease-out; /* 슬라이드 효과 */
-    background-color: #242c3f; /* 하위메뉴 배경색 (사이드바보다 약간 어둡게) */
+    background-color: #242c3f; /* 1단계 하위메뉴 배경색 */
 }
 
-.sidebar-nav li.has-submenu.open .submenu {
-    max-height: 500px; /* 충분한 높이로 펼쳐지도록 (항목 수에 따라 조절 가능) */
+.sidebar-nav li.has-submenu.open .submenu.level-1 {
+    max-height: 500px; /* 충분한 높이로 펼쳐지도록 */
     transition: max-height 0.5s ease-in;
 }
 
-.sidebar-nav .submenu li a {
-    padding-left: 50px; /* 들여쓰기 (아이콘 너비 + 추가 여백) */
-    font-size: 0.85rem; /* 하위 메뉴 폰트 크기 약간 작게 */
-    color: #98a6b9; /* 하위 메뉴 글자색 */
-    border-left: 4px solid transparent; /* 활성 표시는 상위 메뉴와 동일하게 */
+/* 1단계 하위 메뉴 아이템 스타일 */
+.sidebar-nav .submenu.level-1 > li > a {
+    padding-left: 45px; /* 1단계 들여쓰기 */
+    font-size: 0.88rem;
+    color: #9cb0c9;
+    border-left: 4px solid transparent;
 }
 
-.sidebar-nav .submenu li a:hover {
+.sidebar-nav .submenu.level-1 > li > a:hover {
     color: #ffffff;
     background-color: #2a344a;
     border-left-color: #1e9fc4;
 }
 
-.sidebar-nav .submenu li a.active {
+.sidebar-nav .submenu.level-1 > li > a.active {
     color: #ffffff;
-    background-color: #2a344a; /* 활성 시 배경색 */
-    border-left-color: #1e9fc4; /* 활성 시 테두리 색상 */
+    background-color: #2a344a;
+    border-left-color: #1e9fc4;
 }
 
-.sidebar-nav .submenu li a i {
-    font-size: 0.8rem; /* 하위 메뉴 아이콘 크기 */
-    color: #5c6a7e; /* 하위 메뉴 아이콘 색상 */
+.sidebar-nav .submenu.level-1 > li > a i {
+    font-size: 0.9rem; /* 1단계 아이콘 크기 */
+    color: #657ea0; /* 1단계 아이콘 색상 */
     margin-right: 10px;
 }
+.sidebar-nav .submenu.level-1 > li > a.active i,
+.sidebar-nav .submenu.level-1 > li > a:hover i {
+    color: #1e9fc4;
+}
 
-.sidebar-nav .submenu li a.active i,
-.sidebar-nav .submenu li a:hover i {
-    color: #1e9fc4; /* 하위 메뉴 활성/호버 시 아이콘 색상 */
+
+/* 2단계 하위 메뉴 스타일 */
+.sidebar-nav .submenu.level-2 {
+    list-style: none;
+    padding-left: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #20283a; /* 2단계 하위메뉴 배경색 (더 어둡게) */
+}
+
+.sidebar-nav li.has-submenu.open .submenu.level-2 {
+    max-height: 500px; /* 충분한 높이로 펼쳐지도록 */
+}
+
+.sidebar-nav .submenu.level-2 li a {
+    padding-left: 65px; /* 2단계 들여쓰기 */
+    font-size: 0.82rem; /* 2단계 폰트 크기 더 작게 */
+    color: #8aa0b9; /* 2단계 글자색 */
+    border-left: 4px solid transparent;
+}
+
+.sidebar-nav .submenu.level-2 li a:hover {
+    color: #ffffff;
+    background-color: #273043;
+    border-left-color: #1e9fc4;
+}
+
+.sidebar-nav .submenu.level-2 li a.active {
+    color: #ffffff;
+    background-color: #273043;
+    border-left-color: #1e9fc4;
+}
+
+.sidebar-nav .submenu.level-2 li a i {
+    font-size: 0.75rem; /* 2단계 아이콘 크기 */
+    color: #556882; /* 2단계 아이콘 색상 */
+    margin-right: 8px;
+}
+.sidebar-nav .submenu.level-2 li a.active i,
+.sidebar-nav .submenu.level-2 li a:hover i {
+    color: #1e9fc4;
 }
 
 
