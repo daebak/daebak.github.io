@@ -88,11 +88,12 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">등록하기</button>
+                        <button type="submit" id="submit-button" class="btn btn-primary">등록하기</button>
                         <button type="button" class="btn btn-secondary">임시저장</button>
                         <button type="reset" class="btn btn-tertiary">취소</button>
                     </div>
                 </form>
+                <div id="form-feedback" style="margin-top: 15px; padding: 10px; border-radius: 4px; display: none;"></div>
             </div>
         </main>
         <footer>
@@ -153,6 +154,7 @@
                 blogPostForm.addEventListener('submit', function(event) {
                     const title = document.getElementById('post-title').value.trim();
                     const content = document.getElementById('post-content').value.trim();
+                    let extractedUrl = '';
 
                     if (title === '' || content === '') {
                         alert('제목과 내용은 필수 입력 항목입니다.');
@@ -163,8 +165,69 @@
                         } else if (content === '') {
                             document.getElementById('post-content').focus();
                         }
+                        return; // 필수 필드 오류 시 여기서 중단
                     }
-                    // 추가적인 유효성 검사 (예: 파일 크기, 형식 등)는 여기에 구현 가능
+
+                    // 내용에서 URL 추출 (간단한 정규식 사용, 첫 번째 URL만 추출)
+                    const urlRegex = /(https?:\/\/[^\s]+)/g;
+                    const urlsInContent = content.match(urlRegex);
+                    if (urlsInContent && urlsInContent.length > 0) {
+                        extractedUrl = urlsInContent[0];
+                        console.log('추출된 URL:', extractedUrl);
+                    } else {
+                        alert('내용에서 URL을 찾을 수 없습니다. URL을 포함시켜 주세요.');
+                        event.preventDefault(); // 폼 제출 방지
+                        document.getElementById('post-content').focus();
+                        return; // URL 없음 오류 시 여기서 중단
+                    }
+
+                    event.preventDefault(); // 실제 서버로의 폼 제출은 막고, fetch API로 직접 호출
+
+                    const backendServiceUrl = 'http://112.212.1.197:8090/hizbee/user/url';
+                    const requestUrl = `${backendServiceUrl}?url=${encodeURIComponent(extractedUrl)}`;
+                    const submitButton = document.getElementById('submit-button');
+                    const feedbackDiv = document.getElementById('form-feedback');
+
+                    // 로딩 상태 표시
+                    submitButton.disabled = true;
+                    submitButton.textContent = '등록 중...';
+                    feedbackDiv.style.display = 'none'; // 이전 피드백 숨김
+
+                    console.log('백엔드 요청 URL:', requestUrl);
+
+                    fetch(requestUrl)
+                        .then(response => {
+                            if (!response.ok) {
+                                return response.text().then(text => {
+                                    throw new Error(`HTTP error! status: ${response.status}, message: ${text || '오류 응답 내용 없음'}`);
+                                });
+                            }
+                            return response.json().catch(() => {
+                                // JSON 파싱 실패 시 빈 객체 또는 다른 기본값 반환 (또는 오류 처리)
+                                console.warn('JSON 파싱 실패, 응답이 JSON 형식이 아닐 수 있습니다.');
+                                return {}; // 또는 throw new Error('응답 형식이 올바르지 않습니다.');
+                            });
+                        })
+                        .then(data => {
+                            console.log('백엔드 응답 성공:', data);
+                            feedbackDiv.textContent = '요청 성공! 응답: ' + JSON.stringify(data);
+                            feedbackDiv.style.backgroundColor = '#d4edda'; // 성공 피드백 배경색
+                            feedbackDiv.style.color = '#155724'; // 성공 피드백 글자색
+                            feedbackDiv.style.display = 'block';
+                            blogPostForm.reset(); // 성공 시 폼 초기화
+                        })
+                        .catch(error => {
+                            console.error('백엔드 요청 실패:', error);
+                            feedbackDiv.textContent = '요청 중 오류 발생: ' + error.message;
+                            feedbackDiv.style.backgroundColor = '#f8d7da'; // 오류 피드백 배경색
+                            feedbackDiv.style.color = '#721c24'; // 오류 피드백 글자색
+                            feedbackDiv.style.display = 'block';
+                        })
+                        .finally(() => {
+                            // 로딩 상태 해제
+                            submitButton.disabled = false;
+                            submitButton.textContent = '등록하기';
+                        });
                 });
             }
         });
