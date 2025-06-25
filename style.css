@@ -71,6 +71,12 @@ h2 {
     font-size: 14px;
 }
 
+.social-login { /* 소셜 로그인 버튼들을 감싸는 컨테이너 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 버튼(wrapper)들을 중앙 정렬 */
+}
+
 /* 공통 소셜 버튼 스타일 조정 */
 .social-button,
 .custom-google-signin-button-wrapper, /* Google 버튼 Wrapper */
@@ -78,9 +84,10 @@ h2 {
 #appleid-signin { /* Apple 버튼 Wrapper */
     width: 100%; /* 기본 너비는 100%로 설정 */
     max-width: 338px; /* 모든 버튼의 최대 너비를 Google 버튼 너비(338px)와 유사하게 통일 */
-    height: 40px; /* 모든 버튼의 높이를 40px로 통일 (네이버/구글/애플 기준) */
-    margin-left: auto; /* 중앙 정렬 */
-    margin-right: auto; /* 중앙 정렬 */
+    min-height: 40px; /* 최소 높이를 40px로 통일 (네이버/구글/애플 기준), 실제 컨텐츠에 따라 늘어날 수 있음 */
+    /* height: 40px; 대신 min-height 사용 */
+    margin-left: auto; /* 상위 요소(.social-login)가 align-items:center를 사용하므로 불필요할 수 있음 */
+    margin-right: auto; /* 상위 요소(.social-login)가 align-items:center를 사용하므로 불필요할 수 있음 */
     margin-bottom: 10px;
     display: flex; /* 내부 컨텐츠 정렬을 위해 flex 사용 */
     align-items: center;
@@ -98,10 +105,10 @@ h2 {
 }
 
 
-.social-button img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+.social-button img { /* 카카오 버튼 내 아이콘 */
+    width: 18px; /* 아이콘 크기 약간 줄여서 다른 SDK 아이콘과 유사하게 */
+    height: 18px; /* 아이콘 크기 약간 줄여서 다른 SDK 아이콘과 유사하게 */
+    margin-right: 8px; /* 텍스트와의 간격 조정 */
     object-fit: contain;
 }
 
@@ -155,11 +162,10 @@ h2 {
     box-sizing: border-box !important;
 }
 #naverIdLogin_loginButton img {
-    /* 네이버 버튼 내부 이미지 크기는 SDK에 의해 제어되므로, 과도한 수정은 피함 */
-    /* 필요시 약간의 조정만 적용 */
-    height: auto; /* 높이 자동 조정 */
-    max-height: 20px; /* 이미지 최대 높이 (텍스트와 균형 맞추기) */
+    height: 18px !important; /* 네이버 아이콘 높이 다른 버튼과 유사하게 조정 */
+    width: auto !important; /* 너비는 자동, 또는 필요시 고정값 */
     margin-right: 8px !important;
+    object-fit: contain;
 }
 
 /* 기존 .social-button.naver 스타일은 이제 사용되지 않으므로 주석 처리하거나 삭제 가능 */
@@ -190,7 +196,13 @@ h2 {
   추가적인 CSS 커스터마이징은 제한적일 수 있으며, 필요하다면 wrapper div를 통해 간격 등을 조정할 수 있습니다.
   현재 login.html에서는 style="width: 100%; height: 40px; margin-bottom: 10px; cursor: pointer;"
   인라인 스타일을 #appleid-signin div에 적용하여 다른 버튼들과 크기 및 간격을 맞추고 있습니다.
+  -> 이 인라인 스타일은 공통 스타일로 이전되었으므로 login.html에서 제거 예정입니다.
 */
+#appleid-signin { /* Apple 버튼 Wrapper에 대한 추가 스타일 (필요시) */
+    cursor: pointer; /* 클릭 가능함을 표시 */
+}
+/* Apple SDK 아이콘은 직접 제어하기 어려움. 버튼 높이에 맞춰 자동 조정됨. */
+
 
 /* 기존 .social-button.apple 스타일은 SDK 버튼을 사용하므로 주석 처리 또는 삭제 */
 /*
