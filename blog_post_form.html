@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그 글쓰기 - HizBee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="hizbee-logo.png" alt="HizBee 로고" class="sidebar-logo">
+            <h2>HizBee</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-pencil-alt"></i> AI 글쓰기 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                    <ul class="submenu level-1">
+                        <li class="has-submenu">
+                            <a href="#" class="submenu-toggle"><i class="fab fa-blogger-b"></i> 블로그 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                            <ul class="submenu level-2">
+                                <li><a href="blog_post_form.html" class="active"><i class="fas fa-feather-alt"></i> 제품 사용후기</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fas fa-rocket"></i> 대량 글생성</a></li>
+                <li><a href="#"><i class="fas fa-archive"></i> 보관함</a></li>
+                <li><a href="#"><i class="fas fa-key"></i> 키워드</a></li>
+                <li><a href="#"><i class="fas fa-user-shield"></i> 멤버십 안내</a></li>
+                <li><a href="#"><i class="fas fa-book-open"></i> 이용가이드</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+             <a href="#"><i class="fas fa-power-off"></i> 로그아웃</a>
+        </div>
+    </aside>
+
+    <div class="main-content-area">
+        <header>
+            <div class="header-left">
+                <button class="menu-toggle-button"><i class="fas fa-align-left"></i></button>
+                <h1>블로그 글쓰기</h1> <!-- 페이지 제목 변경 -->
+            </div>
+            <div class="header-right">
+                <span class="username">사용자 이름</span>
+            </div>
+        </header>
+        <main class="page-content">
+            <div class="form-container card-style"> <!-- card-style 클래스 추가 -->
+                <form id="blog-post-form">
+                    <div class="form-group">
+                        <label for="post-title">제목 <span class="required">*</span></label>
+                        <input type="text" id="post-title" name="post-title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-category">카테고리</label>
+                        <select id="post-category" name="post-category">
+                            <option value="">카테고리 선택</option>
+                            <option value="tech">기술</option>
+                            <option value="lifestyle">라이프스타일</option>
+                            <option value="review">제품리뷰</option>
+                            <!-- 다른 카테고리 옵션들 -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-content">내용 <span class="required">*</span></label>
+                        <textarea id="post-content" name="post-content" rows="15" required></textarea>
+                        <!-- CKEditor 또는 다른 WYSIWYG 에디터로 대체 고려 -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-tags">태그 (쉼표로 구분)</label>
+                        <input type="text" id="post-tags" name="post-tags" placeholder="예: IT, 프로그래밍, 사용후기">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-image">대표 이미지</label>
+                        <input type="file" id="post-image" name="post-image" accept="image/*">
+                        <small>최대 2MB, JPG, PNG, GIF 형식</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">등록하기</button>
+                        <button type="button" class="btn btn-secondary">임시저장</button>
+                        <button type="reset" class="btn btn-tertiary">취소</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <p>&copy; 2023 HizBee. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggleButton = document.querySelector('.menu-toggle-button');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContentArea = document.querySelector('.main-content-area');
+            const header = document.querySelector('header');
+
+            if (menuToggleButton && sidebar && mainContentArea && header) {
+                menuToggleButton.addEventListener('click', function () {
+                    const isOpen = sidebar.classList.contains('force-closed');
+                    if (!isOpen) {
+                        sidebar.style.left = '-250px';
+                        mainContentArea.style.marginLeft = '0';
+                        header.style.left = '0';
+                        header.style.width = '100%';
+                        sidebar.classList.add('force-closed');
+                    } else {
+                        sidebar.style.left = '0';
+                        mainContentArea.style.marginLeft = '250px';
+                        header.style.left = '250px';
+                        header.style.width = 'calc(100% - 250px)';
+                        sidebar.classList.remove('force-closed');
+                    }
+                });
+            }
+
+            const submenuToggles = document.querySelectorAll('.sidebar-nav .submenu-toggle');
+            submenuToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const parentLi = this.closest('li.has-submenu');
+                    if (parentLi) {
+                        parentLi.classList.toggle('open');
+                    }
+                });
+            });
+
+            // 페이지 로드 시 특정 메뉴 기본 펼침 (AI 글쓰기 > 블로그)
+            const aiWritingMenu = document.querySelector('.sidebar-nav > ul > li.has-submenu:first-child');
+            if (aiWritingMenu) {
+                aiWritingMenu.classList.add('open');
+                const blogMenu = aiWritingMenu.querySelector('ul.submenu.level-1 > li.has-submenu:first-child');
+                if (blogMenu) {
+                    blogMenu.classList.add('open');
+                }
+            }
+
+            // 폼 유효성 검사 (간단하게)
+            const blogPostForm = document.getElementById('blog-post-form');
+            if (blogPostForm) {
+                blogPostForm.addEventListener('submit', function(event) {
+                    const title = document.getElementById('post-title').value.trim();
+                    const content = document.getElementById('post-content').value.trim();
+
+                    if (title === '' || content === '') {
+                        alert('제목과 내용은 필수 입력 항목입니다.');
+                        event.preventDefault(); // 폼 제출 방지
+
+                        if (title === '') {
+                            document.getElementById('post-title').focus();
+                        } else if (content === '') {
+                            document.getElementById('post-content').focus();
+                        }
+                    }
+                    // 추가적인 유효성 검사 (예: 파일 크기, 형식 등)는 여기에 구현 가능
+                });
+            }
+        });
+    </script>
+</body>
+</html>
