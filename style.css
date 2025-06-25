@@ -111,6 +111,22 @@ h2 {
     border-color: #cccccc;
 }
 
+/* Google Sign-In 버튼 커스텀 스타일 */
+.custom-google-signin-button-wrapper {
+    display: flex; /* 내부 div를 정렬하기 위함 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 10px; /* 다른 버튼과의 간격 */
+    width: 100%; /* 부모 너비에 맞춤 */
+}
+
+/*
+  Google의 data-width, data-height, data-longtitle 속성을 사용하여
+  버튼 크기와 텍스트를 조절합니다.
+  g-signin2 div 자체의 스타일을 직접 수정하는 것보다
+  Google에서 제공하는 data-* 속성을 사용하는 것이 권장됩니다.
+  필요시 wrapper div를 통해 추가적인 레이아웃 조정이 가능합니다.
+*/
+
 .social-button.naver {
     background-color: #03C75A;
     color: white;
