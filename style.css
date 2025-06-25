@@ -127,7 +127,43 @@ h2 {
   필요시 wrapper div를 통해 추가적인 레이아웃 조정이 가능합니다.
 */
 
+/* Naver Login Button Customizations */
+#naverIdLogin { /* 네이버 SDK가 생성하는 버튼을 담는 div */
+    display: flex;
+    justify-content: center; /* 버튼 내부 요소 (이미지, 텍스트) 정렬에 도움 */
+}
+#naverIdLogin_loginButton { /* 네이버 SDK가 실제로 생성하는 버튼 (a 태그) */
+    /* 기본 스타일은 SDK의 loginButton 옵션 (type:3, height:40)을 따릅니다. */
+    /* 여기서는 너비를 다른 버튼들과 유사하게 맞추기 위한 시도를 할 수 있으나,
+       네이버 SDK 버튼은 너비 직접 제어가 어려울 수 있습니다.
+       최대한 유사하게 보이도록 loginButton 옵션의 type을 조정하거나,
+       필요시 추가적인 wrapper CSS를 적용할 수 있습니다.
+       type:3 일 때 너비가 약 222px로 고정되는 경향이 있습니다.
+       다른 버튼들의 너비가 100% (max-width: 400px 내에서)이므로,
+       완벽히 맞추기 어려울 수 있습니다.
+       우선은 SDK가 제공하는 버튼 크기를 최대한 활용합니다.
+    */
+}
+/* 기존 .social-button.naver 스타일은 이제 사용되지 않으므로 주석 처리하거나 삭제 가능 */
+/*
 .social-button.naver {
+    background-color: #03C75A;
+    color: white;
+    border-color: #03C75A;
+}
+.social-button.naver img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+
+.social-button.naver:hover {
+    background-color: #02b350;
+}
+*/
+
+.social-button.apple {
     background-color: #03C75A;
     color: white;
     border-color: #03C75A;

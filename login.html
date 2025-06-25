@@ -7,6 +7,7 @@
     <meta name="google-signin-client_id" content="489301222321-4jfsu0c92plecja3ofv92qbav38ifuqv.apps.googleusercontent.com">
     <link rel="stylesheet" href="style.css">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 </head>
 <body>
     <div class="login-container">
@@ -38,10 +39,14 @@
                 구글 로그인
             </button>
              -->
-            <button class="social-button naver">
+            <!-- 네이버 SDK가 이 div에 로그인 버튼을 생성합니다. -->
+            <div id="naverIdLogin" style="margin-bottom: 10px;"></div>
+            <!-- 기존 네이버 버튼은 숨김 처리합니다.
+            <button class="social-button naver" style="display: none;">
                 <img src="https://static.nid.naver.com/oauth/button_main.png" alt="네이버 로그인">
                 네이버 로그인
             </button>
+            -->
             <button class="social-button apple">
                 <img src="https://appleid.cdn-apple.com/appleid/button?height=40&width=300&type=sign-in&color=black&border=false&border_radius=15&locale=ko_KR" alt="Apple 로그인">
                 Apple로 로그인
@@ -116,9 +121,76 @@
                 alert('Google 계정에서 로그아웃되었습니다.');
             });
         }
+
+        // 네이버 로그인 초기화 및 핸들러
+        var naverLogin = new naver.LoginWithNaverId(
+            {
+                clientId: "zYLiP0cKfI4Mm4K1LtL5", // 사용자가 제공한 Client ID
+                callbackUrl: "https://daebak.github.io/login.html", // 사용자가 제공한 Callback URL
+                isPopup: false, // 팝업을 통한 연동은 모바일 환경에 적합, PC에서는 false 권장
+                loginButton: {color: "green", type: 3, height: 40} // 버튼 스타일 설정
+            }
+        );
+        naverLogin.init();
+
+        naverLogin.getLoginStatus(function (status) {
+            if (status) {
+                var email = naverLogin.user.getEmail();
+                var name = naverLogin.user.getName();
+                var nickname = naverLogin.user.getNickName();
+                var profileImage = naverLogin.user.getProfileImage();
+
+                console.log("Naver Login Status:", status);
+                console.log("Email: " + email);
+                console.log("Name: " + name);
+                console.log("Nickname: " + nickname);
+                console.log("Profile Image: " + profileImage);
+
+                // 로그인 성공 알림 (이미 로그인된 상태일 수 있으므로, 버튼 클릭 시와 구분 필요)
+                // alert("네이버에 로그인되어 있습니다: " + name + " (" + email + ")");
+            } else {
+                console.log("Naver Login Status: Not logged in");
+            }
+        });
+
+        // 네이버 로그인 버튼 클릭 이벤트 핸들러 (기존 버튼 사용 시) - 이제 사용하지 않음
+        // const naverLoginButton = document.querySelector('.social-button.naver');
+        // if (naverLoginButton) {
+        //     naverLoginButton.addEventListener('click', function() {
+        //          alert('네이버 로그인 버튼 클릭됨. SDK 초기화는 되었으나, 버튼 연동 방식 결정 필요.');
+        //     });
+        // }
+
+        // 페이지 로드 시 네이버 로그인 버튼 다시 초기화 (콜백에서 돌아왔을 때 버튼이 다시 그려지도록)
+        window.addEventListener('load', function () {
+            naverLogin.getLoginStatus(function (status) {
+                if (status) {
+                    // 로그인 상태이면 사용자 정보 처리
+                    const name = naverLogin.user.getName();
+                    const email = naverLogin.user.getEmail();
+                    alert("네이버 아이디로 로그인 되었습니다: " + name + " (" + email + ")");
+                    // TODO: 실제 로그인 성공 후 처리 로직 (예: 메인 페이지로 이동)
+                    // window.location.href = "index.html";
+                } else {
+                    // SDK가 버튼을 다시 그리도록 init()을 호출하거나,
+                    // 특정 div에 버튼을 명시적으로 렌더링하는 함수가 있다면 호출합니다.
+                    // 네이버 SDK는 init() 시점에 loginButton 설정을 따르므로,
+                    // 콜백 후 돌아왔을 때 버튼이 사라지는 경우를 대비해 다시 init()을 호출할 수 있으나,
+                    // 보통은 init()은 한 번만 호출합니다.
+                    // 대신, #naverIdLogin div가 항상 존재하도록 HTML에 명시합니다.
+                    console.log("네이버 로그아웃 상태 또는 콜백 처리 전입니다.");
+                }
+            });
+        });
+
     </script>
-    <div style="text-align: center; margin-top: 20px;">
+    <div style="text-align: center; margin-top: 20px; margin-bottom: 10px;">
         <a href="#" onclick="signOut();">Google 로그아웃</a>
+    </div>
+    <!-- 네이버 로그아웃은 명시적 SDK 함수가 없으므로, 사용자 안내 또는 쿠키/세션 방식 고려 -->
+    <!-- 여기서는 간단히 네이버 메인으로 가는 링크를 추가하여 사용자가 직접 로그아웃하도록 유도 -->
+    <div style="text-align: center; margin-bottom: 20px;">
+        <a href="https://nid.naver.com/nidlogin.logout" target="_blank" title="새 창에서 네이버 로그아웃">네이버 계정 로그아웃 (네이버 사이트)</a>
     </div>
 </body>
 </html>
