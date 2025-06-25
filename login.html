@@ -41,7 +41,8 @@
             </button>
             <!-- Google Sign-In 버튼 wrapper -->
             <div class="custom-google-signin-button-wrapper">
-                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="338" data-height="40" data-longtitle="true"></div>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-height="40" data-longtitle="true"></div>
+                <!-- data-width="338" 제거하여 CSS의 max-width로 제어 -->
             </div>
             <!-- 기존 구글 로그인 버튼은 숨기거나 제거할 수 있습니다. 우선 숨김 처리합니다.
             <button class="social-button google" style="display: none;">
@@ -50,7 +51,7 @@
             </button>
              -->
             <!-- 네이버 SDK가 이 div에 로그인 버튼을 생성합니다. -->
-            <div id="naverIdLogin" style="margin-bottom: 10px;"></div>
+            <div id="naverIdLogin"></div> <!-- 인라인 style="margin-bottom: 10px;" 제거 -->
             <!-- 기존 네이버 버튼은 숨김 처리합니다.
             <button class="social-button naver" style="display: none;">
                 <img src="https://static.nid.naver.com/oauth/button_main.png" alt="네이버 로그인">
@@ -58,7 +59,7 @@
             </button>
             -->
             <!-- Apple 로그인 버튼 (Apple 가이드라인에 따라 div로 생성) -->
-            <div id="appleid-signin" data-color="black" data-border="true" data-type="sign-in" style="width: 100%; height: 40px; margin-bottom: 10px; cursor: pointer;"></div>
+            <div id="appleid-signin" data-color="black" data-border="true" data-type="sign-in"></div> <!-- 인라인 style 제거 -->
             <!-- 기존 Apple 버튼은 숨김 처리 또는 제거. 여기서는 appleid-signin div가 역할을 대신함.
             <button class="social-button apple" style="display: none;">
                 <img src="https://appleid.cdn-apple.com/appleid/button?height=40&width=300&type=sign-in&color=black&border=false&border_radius=15&locale=ko_KR" alt="Apple 로그인">
