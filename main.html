@@ -18,11 +18,15 @@
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="#" id="ai-writing-menu"><i class="fas fa-pencil-alt"></i> AI 글쓰기</a></li>
-                <li class="has-submenu">
-                    <a href="#" class="submenu-toggle"><i class="fab fa-blogger-b"></i> 블로그 <i class="fas fa-chevron-down submenu-arrow"></i></a>
-                    <ul class="submenu">
-                        <li><a href="#"><i class="fas fa-feather-alt"></i> 제품 사용후기</a></li>
+                <li class="has-submenu"> <!-- AI 글쓰기를 최상위, 하위 메뉴를 가지도록 변경 -->
+                    <a href="#" class="submenu-toggle"><i class="fas fa-pencil-alt"></i> AI 글쓰기 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                    <ul class="submenu level-1"> <!-- 1단계 하위 메뉴 -->
+                        <li class="has-submenu">
+                            <a href="#" class="submenu-toggle"><i class="fab fa-blogger-b"></i> 블로그 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                            <ul class="submenu level-2"> <!-- 2단계 하위 메뉴 -->
+                                <li><a href="#"><i class="fas fa-feather-alt"></i> 제품 사용후기</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="#"><i class="fas fa-rocket"></i> 대량 글생성</a></li>
