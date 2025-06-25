@@ -366,3 +366,137 @@ body {
     padding: 0; /* body의 기본 패딩 제거 */
     box-sizing: border-box;
 }
+
+/* 메인 화면 위젯 컨테이너 스타일 */
+.widget-container {
+    display: flex;
+    flex-wrap: wrap; /* 위젯들이 화면 너비를 넘어가면 다음 줄로 */
+    gap: 20px; /* 위젯 간의 간격 */
+    padding: 20px; /* 컨테이너 내부 여백 */
+    justify-content: center; /* 위젯들을 가운데 정렬 (옵션) */
+}
+
+/* 카드 위젯 기본 스타일 */
+.widget-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.333% - 20px); /* 한 줄에 3개씩 배치 (간격 고려) */
+    min-width: 280px; /* 최소 너비 설정 */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.widget-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.widget-icon {
+    width: 32px; /* 아이콘 크기 */
+    height: 32px;
+    margin-right: 12px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 아이콘 이미지는 CSS로 개별 지정 (예시) */
+}
+
+/* 아이콘 예시 (실제 아이콘 파일 경로로 수정 필요) */
+.user-icon { background-image: url('path/to/user-icon.svg'); }
+.server-icon { background-image: url('path/to/server-icon.svg'); }
+.error-icon { background-image: url('path/to/error-icon.svg'); }
+/* 아이콘이 없을 경우를 대비한 기본 스타일 또는 텍스트 아이콘 사용 고려 */
+
+.widget-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.widget-content {
+    flex-grow: 1; /* 푸터를 카드 하단에 고정시키기 위함 */
+    margin-bottom: 15px;
+}
+
+.widget-data {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #007bff; /* 주요 데이터 색상 */
+    margin: 0 0 5px 0;
+}
+
+.widget-data.status-ok {
+    color: #28a745; /* '정상' 상태일 때 초록색 */
+}
+.widget-data.status-warning {
+    color: #ffc107; /* '경고' 상태일 때 노란색 */
+}
+.widget-data.status-error {
+    color: #dc3545; /* '오류' 상태일 때 빨간색 */
+}
+
+
+.widget-description {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.widget-footer {
+    margin-top: auto; /* 위젯 콘텐츠가 적어도 푸터를 하단에 위치시킴 */
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+    text-align: right;
+}
+
+.widget-link {
+    font-size: 0.8rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.widget-link:hover {
+    text-decoration: underline;
+}
+
+/* 반응형: 화면 크기가 작아질 때 위젯 배치 변경 */
+@media (max-width: 992px) {
+    .widget-card {
+        width: calc(50% - 20px); /* 한 줄에 2개씩 */
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        margin-top: 60px; /* 헤더 높이에 따라 조정 */
+    }
+    .widget-container {
+        padding: 15px;
+        gap: 15px;
+    }
+    .widget-card {
+        width: 100%; /* 한 줄에 1개씩 */
+        margin-bottom: 15px; /* 모바일에서는 위젯 간 하단 마진 추가 */
+    }
+    .widget-data {
+        font-size: 1.6rem;
+    }
+    .widget-title {
+        font-size: 1rem;
+    }
+}
