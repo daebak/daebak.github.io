@@ -163,22 +163,19 @@ h2 {
 }
 */
 
-.social-button.apple {
-    background-color: #03C75A;
-    color: white;
-    border-color: #03C75A;
-}
-.social-button.naver img {
-    width: 18px; /* 너비 고정 */
-    height: 18px; /* 높이 고정 */
-    object-fit: contain; /* 비율 유지하며 채우기 */
-}
+/* Apple Sign In Button Styling */
+/*
+  Apple 로그인 버튼은 JS SDK를 통해 렌더링되며, data-color, data-border, data-type 속성으로
+  스타일을 제어합니다. login.html에서 <div id="appleid-signin" ...>에 해당 속성들을 사용했습니다.
+  (예: data-color="black" data-border="true" data-type="sign-in")
+  Apple의 가이드라인에 따라 제공되는 스타일을 사용하는 것이 권장됩니다.
+  추가적인 CSS 커스터마이징은 제한적일 수 있으며, 필요하다면 wrapper div를 통해 간격 등을 조정할 수 있습니다.
+  현재 login.html에서는 style="width: 100%; height: 40px; margin-bottom: 10px; cursor: pointer;"
+  인라인 스타일을 #appleid-signin div에 적용하여 다른 버튼들과 크기 및 간격을 맞추고 있습니다.
+*/
 
-
-.social-button.naver:hover {
-    background-color: #02b350;
-}
-
+/* 기존 .social-button.apple 스타일은 SDK 버튼을 사용하므로 주석 처리 또는 삭제 */
+/*
 .social-button.apple {
     background-color: #000000;
     color: white;
@@ -190,10 +187,17 @@ h2 {
 }
 
 .social-button.apple img {
-    filter: invert(1); /* 애플 로고가 검은색 배경에 잘 보이도록 색상 반전 */
-    width: 20px; /* 너비 고정 */
-    height: 20px; /* 높이 고정 */
-    object-fit: contain; /* 비율 유지하며 채우기 */
+    filter: invert(1);
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+*/
+
+/* 중복된 .social-button.apple 및 .social-button.naver img, .social-button.naver:hover 삭제 */
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
 }
 
 
