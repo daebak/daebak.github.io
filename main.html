@@ -18,25 +18,31 @@
         </div>
         <nav class="sidebar-nav">
             <ul>
-                <li><a href="#" class="active"><i class="fas fa-home"></i> 대시보드</a></li> <!-- 아이콘 변경: fa-tachometer-alt -> fa-home -->
-                <li><a href="#"><i class="fas fa-box-open"></i> 모듈 관리</a></li> <!-- 아이콘 변경: fa-cubes -> fa-box-open -->
-                <li><a href="#"><i class="fas fa-chart-pie"></i> 데이터 분석</a></li> <!-- 아이콘 변경: fa-chart-bar -> fa-chart-pie -->
-                <li><a href="#"><i class="fas fa-file-invoice"></i> 보고서</a></li> <!-- 아이콘 변경: fa-file-alt -> fa-file-invoice -->
-                <li><a href="#"><i class="fas fa-user-friends"></i> 사용자 관리</a></li> <!-- 아이콘 변경: fa-users -> fa-user-friends -->
-                <li><a href="#"><i class="fas fa-sliders-h"></i> 시스템 설정</a></li> <!-- 아이콘 변경: fa-cog -> fa-sliders-h -->
-                <li><a href="#"><i class="fas fa-bell"></i> 알림</a></li> <!-- 유지 -->
+                <li><a href="#" id="ai-writing-menu"><i class="fas fa-pencil-alt"></i> AI 글쓰기</a></li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fab fa-blogger-b"></i> 블로그 <i class="fas fa-chevron-down submenu-arrow"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#"><i class="fas fa-feather-alt"></i> 제품 사용후기</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fas fa-rocket"></i> 대량 글생성</a></li>
+                <li><a href="#"><i class="fas fa-archive"></i> 보관함</a></li>
+                <li><a href="#"><i class="fas fa-key"></i> 키워드</a></li>
+                <li><a href="#"><i class="fas fa-user-shield"></i> 멤버십 안내</a></li>
+                <li><a href="#"><i class="fas fa-book-open"></i> 이용가이드</a></li>
             </ul>
         </nav>
         <div class="sidebar-footer">
-            <a href="#"><i class="fas fa-power-off"></i> 로그아웃</a> <!-- 아이콘 변경: fa-sign-out-alt -> fa-power-off -->
+             <!-- 로그아웃 버튼 또는 다른 푸터 내용 (필요시 추가) -->
+             <a href="#"><i class="fas fa-power-off"></i> 로그아웃</a>
         </div>
     </aside>
 
     <div class="main-content-area">
         <header>
             <div class="header-left">
-                <button class="menu-toggle-button"><i class="fas fa-align-left"></i></button> <!-- 아이콘 변경: fa-bars -> fa-align-left -->
-                <h1>대시보드</h1>
+                <button class="menu-toggle-button"><i class="fas fa-align-left"></i></button>
+                <h1>AI 글쓰기</h1> <!-- 기본 페이지 제목 변경 -->
             </div>
             <div class="header-right">
                 <span class="username">사용자 이름</span>
@@ -99,15 +105,52 @@
             const menuToggleButton = document.querySelector('.menu-toggle-button');
             const sidebar = document.querySelector('.sidebar');
             const mainContentArea = document.querySelector('.main-content-area');
-            const header = document.querySelector('header'); // header 태그 직접 선택
+            const header = document.querySelector('header');
+
+            // 페이지 로드 시 기본적으로 사이드바 관련 클래스 추가 (CSS에서 이미 처리했으므로 이 부분은 선택적 또는 제거 가능)
+            // sidebar.classList.add('open'); // CSS에서 left: 0으로 이미 처리
+            // mainContentArea.classList.add('sidebar-open'); // CSS에서 margin-left로 이미 처리
+            // header.classList.add('sidebar-open'); // CSS에서 left, width로 이미 처리
 
             if (menuToggleButton && sidebar && mainContentArea && header) {
                 menuToggleButton.addEventListener('click', function () {
-                    sidebar.classList.toggle('open');
-                    mainContentArea.classList.toggle('sidebar-open');
-                    header.classList.toggle('sidebar-open');
+                    // 'open' 클래스 토글 로직은 사이드바 자체의 표시/숨김을 제어
+                    // CSS에서 .sidebar.open의 left:0 과 .sidebar의 left:-250px 로직이 필요함
+                    // 현재 CSS는 .sidebar의 left를 0으로 고정했으므로, 토글 시 left 값을 변경하도록 수정 필요
+
+                    // CSS를 초기 숨김 상태로 되돌리고 JS로 제어하거나,
+                    // JS에서 CSS의 초기 표시 상태를 기준으로 클래스 대신 직접 스타일을 토글해야 함.
+                    // 여기서는 CSS 초기 상태를 '열림'으로 두고, JS는 '닫힘' 상태로 만드는 역할을 하도록 수정
+
+                    const isOpen = sidebar.classList.contains('force-closed'); // 'force-closed'는 임의의 클래스명
+
+                    if (!isOpen) { // 현재 열려있다면 (force-closed 클래스가 없다면)
+                        sidebar.style.left = '-250px';
+                        mainContentArea.style.marginLeft = '0';
+                        header.style.left = '0';
+                        header.style.width = '100%';
+                        sidebar.classList.add('force-closed');
+                    } else { // 현재 닫혀있다면 (force-closed 클래스가 있다면)
+                        sidebar.style.left = '0';
+                        mainContentArea.style.marginLeft = '250px';
+                        header.style.left = '250px';
+                        header.style.width = 'calc(100% - 250px)';
+                        sidebar.classList.remove('force-closed');
+                    }
                 });
             }
+
+            // 하위 메뉴 토글 로직
+            const submenuToggles = document.querySelectorAll('.sidebar-nav .submenu-toggle');
+            submenuToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(event) {
+                    event.preventDefault(); // 링크 기본 동작 방지
+                    const parentLi = this.closest('li.has-submenu');
+                    if (parentLi) {
+                        parentLi.classList.toggle('open');
+                    }
+                });
+            });
         });
     </script>
 </body>

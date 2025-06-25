@@ -398,7 +398,7 @@ body {
     color: #a5b4c8; /* example.png 사이드바 기본 글자색 */
     position: fixed;
     top: 0;
-    left: -250px; /* 기본적으로 화면 왼쪽에 숨김 */
+    left: 0; /* 기본적으로 화면 왼쪽에 표시되도록 변경 */
     height: 100%;
     padding: 0; /* 내부 패딩 제거, 각 섹션에서 처리 */
     box-shadow: 0 0 15px rgba(0,0,0,0.2); /* example.png 그림자 */
@@ -486,6 +486,63 @@ body {
     color: #1e9fc4; /* 활성 메뉴 아이콘 색상 (example.png 참고) */
 }
 
+/* 하위 메뉴 스타일 */
+.sidebar-nav li.has-submenu .submenu {
+    list-style: none;
+    padding-left: 0; /* 기본 패딩 제거 */
+    max-height: 0; /* 기본적으로 숨김 */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* 슬라이드 효과 */
+    background-color: #242c3f; /* 하위메뉴 배경색 (사이드바보다 약간 어둡게) */
+}
+
+.sidebar-nav li.has-submenu.open .submenu {
+    max-height: 500px; /* 충분한 높이로 펼쳐지도록 (항목 수에 따라 조절 가능) */
+    transition: max-height 0.5s ease-in;
+}
+
+.sidebar-nav .submenu li a {
+    padding-left: 50px; /* 들여쓰기 (아이콘 너비 + 추가 여백) */
+    font-size: 0.85rem; /* 하위 메뉴 폰트 크기 약간 작게 */
+    color: #98a6b9; /* 하위 메뉴 글자색 */
+    border-left: 4px solid transparent; /* 활성 표시는 상위 메뉴와 동일하게 */
+}
+
+.sidebar-nav .submenu li a:hover {
+    color: #ffffff;
+    background-color: #2a344a;
+    border-left-color: #1e9fc4;
+}
+
+.sidebar-nav .submenu li a.active {
+    color: #ffffff;
+    background-color: #2a344a; /* 활성 시 배경색 */
+    border-left-color: #1e9fc4; /* 활성 시 테두리 색상 */
+}
+
+.sidebar-nav .submenu li a i {
+    font-size: 0.8rem; /* 하위 메뉴 아이콘 크기 */
+    color: #5c6a7e; /* 하위 메뉴 아이콘 색상 */
+    margin-right: 10px;
+}
+
+.sidebar-nav .submenu li a.active i,
+.sidebar-nav .submenu li a:hover i {
+    color: #1e9fc4; /* 하위 메뉴 활성/호버 시 아이콘 색상 */
+}
+
+
+.submenu-arrow {
+    margin-left: auto; /* 화살표를 오른쪽으로 밀어냄 */
+    font-size: 0.7rem;
+    transition: transform 0.3s ease-out;
+}
+
+.sidebar-nav li.has-submenu.open .submenu-arrow {
+    transform: rotate(180deg); /* 메뉴 열렸을 때 화살표 회전 */
+}
+
+
 .sidebar-footer {
     padding: 20px 25px;
     border-top: 1px solid #354052; /* 구분선 */
@@ -511,10 +568,10 @@ body {
 
 /* 메인 콘텐츠 영역 스타일 */
 .main-content-area {
-    margin-left: 0; /* 사이드바가 닫혀있을 때 */
-    padding-top: 70px; /* 헤더 높이만큼 */
+    margin-left: 250px; /* 사이드바 너비만큼 기본 마진 (사이드바 기본 표시) */
+    padding-top: 65px; /* 헤더 높이만큼 */
     transition: margin-left 0.3s ease-in-out;
-    width: 100%; /* 사이드바 고려하여 너비 조정 필요 시 JavaScript에서 처리 */
+    width: calc(100% - 250px); /* 사이드바 너비 제외한 너비 (사이드바 기본 표시) */
     box-sizing: border-box;
 }
 
@@ -535,8 +592,8 @@ header {
     box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* example.png 헤더 그림자 */
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 250px; /* 사이드바 너비만큼 기본 left (사이드바 기본 표시) */
+    width: calc(100% - 250px); /* 사이드바 너비 제외한 너비 (사이드바 기본 표시) */
     box-sizing: border-box;
     z-index: 1000;
     transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
