@@ -23,6 +23,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <button type="submit" class="login-button">로그인</button>
+            <button type="button" id="temp-login-button" class="login-button temp-login">로그인 (임시)</button>
         </form>
         <div class="social-login">
             <p>SNS 계정으로 로그인</p>
@@ -253,6 +254,14 @@
                 */
                // 현재는 실제 호출 대신 알림만 표시
                alert("Apple 로그인 버튼이 클릭되었습니다. 실제 Apple 로그인을 위해서는 Apple Developer 계정 정보 입력 및 서버 측 구현이 완료되어야 합니다. 현재는 실제 로그인 로직이 비활성화되어 있습니다.");
+            });
+        }
+
+        // 임시 로그인 버튼 이벤트 리스너
+        const tempLoginButton = document.getElementById('temp-login-button');
+        if (tempLoginButton) {
+            tempLoginButton.addEventListener('click', function() {
+                window.location.href = 'main.html';
             });
         }
 

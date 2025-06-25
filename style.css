@@ -68,6 +68,17 @@ h2 {
     background-color: #0056b3;
 }
 
+.login-button.temp-login {
+    background-color: #ffc107; /* 임시 버튼은 노란색 계열로 변경 */
+    color: #212529; /* 어두운 글자색 */
+    margin-top: 10px; /* 기존 로그인 버튼과의 간격 */
+}
+
+.login-button.temp-login:hover {
+    background-color: #e0a800;
+}
+
+
 .social-login p {
     margin-bottom: 15px;
     color: #666;
