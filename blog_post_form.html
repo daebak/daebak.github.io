@@ -169,7 +169,7 @@
                     }
 
                     // 내용에서 URL 추출 (간단한 정규식 사용, 첫 번째 URL만 추출)
-                    const urlRegex = /(https?:\/\/[^\s]+)/g;
+                    const urlRegex = /(http?:\/\/[^\s]+)/g;
                     const urlsInContent = content.match(urlRegex);
                     if (urlsInContent && urlsInContent.length > 0) {
                         extractedUrl = urlsInContent[0];
