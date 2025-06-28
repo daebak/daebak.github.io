@@ -375,17 +375,16 @@
         };
 
         const WhyHizbeeSection = () => { // 참조: D. Why Hizbee
-            const [ref1, isVisible1] = useAnimateOnScroll({ threshold: 0.05 });
+            // ref1과 isVisible1은 삭제된 블록에만 사용되었으므로 제거.
+            // "WHY?" 제목 블록은 스크롤 애니메이션이 필요하다면 새로운 ref를 사용하거나, ref2를 함께 사용하도록 조정 가능.
+            // 여기서는 "WHY?" 제목 블록은 애니메이션 없이 바로 표시되도록 하고, ref1/isVisible1 관련 로직을 제거.
             const [ref2, isVisible2] = useAnimateOnScroll({ threshold: 0.05 });
             const [ref3, isVisible3] = useAnimateOnScroll({ threshold: 0.05 });
 
             return (
                 <section id="why-hizbee">
                     <style>{`
-                        .why-hizbee-intro { text-align: center; margin-bottom: 4rem; }
-                        .why-hizbee-intro h2 { font-size: 2.5rem; }
-                        .why-hizbee-intro p { font-size: 1.1rem; color: var(--primary-color); font-weight: 600; }
-                        .why-hizbee-intro-img { max-width: 100%; height: auto; max-height: 350px; object-fit: contain; margin-top: 1.5rem; }
+                        /* .why-hizbee-intro 관련 스타일 제거 */
 
                         .why-hizbee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 5rem; }
                         .why-hizbee-grid .text-col h3 { font-size: 1.8rem; margin-bottom: 1rem; line-height: 1.5; }
@@ -394,28 +393,33 @@
                         .why-hizbee-img { width: 100%; max-width: 400px; border-radius: 12px; object-fit: contain; }
                         .text-highlight { color: var(--primary-color); font-weight: bold; }
 
+                        /* why-hizbee-title-wrapper 추가 */
+                        .why-hizbee-title-wrapper { text-align: center; margin-bottom: 3rem; /* 이전 why-hizbee-intro의 margin-bottom과 유사하게 또는 조정 */ }
+                        .why-hizbee-title-wrapper h2 .why-keyword { color: var(--primary-color); display:block; font-size: 1.5rem; margin-bottom:0.5rem; font-weight: 600; /* 폰트 굵기 추가 */ }
+
+
                         @media (max-width: 768px) {
                             .why-hizbee-grid { grid-template-columns: 1fr; }
                             .why-hizbee-grid .img-col { order: -1; margin-bottom: 2rem; text-align: center;}
                             .why-hizbee-grid .text-col h3 { font-size: 1.5rem; }
-                            .why-hizbee-intro h2 {font-size: 2rem;}
+                            /* .why-hizbee-intro h2 관련 스타일 제거 */
+                            .why-hizbee-title-wrapper h2 { font-size: 2rem; } /* 반응형 제목 크기 조정 */
                         }
                     `}</style>
                     <div className="container">
-                        <div ref={ref1} className={`why-hizbee-intro animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
-                            <h2>GPT에 내 상품이<br/>추천되게 할 수 있다고?!</h2>
-                            <p>히즈비와 함께 라면 가능합니다!</p>
-                            <p style={{color: 'var(--text-light)', fontSize: '1rem', fontWeight: 'normal'}}>
-                                GPT · 구글 블로그까지 한 번에 노출!<br/>
-                                고객들의 GPT 신뢰도 70% 이상<br/>
-                                GPT가 질문에 답하여 추천하면 믿고 구매합니다!
-                            </p>
-                            <img src="https://cdn.imweb.me/thumbnail/20250623/3104ef7022d4f.png" alt="히즈비 가능성" className="why-hizbee-intro-img"/>
-                        </div>
+                        {/* 삭제된 블록:
+                        <div ref={ref1} className={`why-hizbee-intro animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`}> ... </div>
+                        */}
 
-                        <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-                             <h2 className={`animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.2s'}}>
-                                <span style={{color: 'var(--primary-color)', display:'block', fontSize: '1.5rem', marginBottom:'0.5rem'}}>WHY?</span>
+                        {/* "WHY?" 제목을 위한 새 wrapper 또는 기존 스타일 적용 */}
+                        <div className="why-hizbee-title-wrapper"> {/* 새 클래스 적용 */}
+                             {/*
+                                 이전: className={`animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.2s'}}
+                                 애니메이션이 필요하다면, 이 블록에 useAnimateOnScroll 훅을 새로 적용하거나,
+                                 단순히 페이지 로드 시 보이도록 애니메이션 클래스 없이 처리. 여기서는 애니메이션 없이 처리.
+                             */}
+                             <h2>
+                                <span className="why-keyword">WHY?</span>
                                 히즈비가 필요한 이유
                             </h2>
                         </div>
