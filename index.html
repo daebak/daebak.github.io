@@ -177,8 +177,8 @@
 
             const navLinks = [
                 { name: 'HizBee소개', href: '#why-hizbee' },
-                { name: '요금안내', href: '#pricing' },
-                { name: '사용사례', href: '#' },
+                { name: '요금안내', href: 'pricing.html' }, // pricing.html로 직접 연결
+                { name: '사용사례', href: '#' }, // 준비되지 않음
                 { name: '통계리포트', href: 'statistics.html' },
             ];
 
@@ -208,7 +208,7 @@
                             </nav>
                             <div className="desktop-nav nav-buttons">
                                 <a href="login.html" className="btn btn-outline">로그인</a>
-                                <a href="#" className="btn btn-primary">무료체험</a>
+                                <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary">무료체험</a>
                             </div>
                             <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                                 <Icon name="menu" size={28} color="var(--white-color)" />
@@ -217,13 +217,13 @@
                                 <div className="mobile-nav-menu">
                                     {navLinks.map((link) => <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.name}</a>)}
                                     <a href="login.html" className="btn btn-outline" style={{marginTop: '1rem', textAlign:'center'}}>로그인</a>
-                                    <a href="#" className="btn btn-primary" style={{marginTop: '0.5rem', textAlign:'center'}}>무료체험</a>
+                                    <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary" style={{marginTop: '0.5rem', textAlign:'center'}}>무료체험</a>
                                 </div>
                             )}
                         </div>
                     </header>
                     <div className="mobile-sticky-cta">
-                        <a href="#" className="btn btn-primary">무료체험 시작하기</a>
+                        <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary">무료체험 시작하기</a>
                     </div>
                 </>
             );
@@ -248,7 +248,7 @@
                         GPT, 구글 블로그까지 한 번에 노출! GPT가 질문에 답하며 추천하면, 고객은 믿고 구매합니다!
                     </p>
                     <div className="animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.3s'}}>
-                         <a href="#" className="btn btn-primary pulse-animation">무료체험 시작하기</a>
+                         <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary pulse-animation">무료체험 시작하기</a>
                     </div>
                     <div className="hero-image-wrapper animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.4s'}}>
                         <img src="./소개1.png" alt="ChatGPT에 내 상품이 추천되는 모습" className="hero-image" />
