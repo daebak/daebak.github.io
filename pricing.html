@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HizBee | 요금제 안내</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="style.css"> <!-- 기존 스타일시트 연결 -->
+    <style>
+        /* 여기에 pricing.html에 특화된 스타일 추가 예정 */
+        :root {
+            --primary-color: #38bdf8; /* 라이트 블루 (Hizbee 사이트 참고) */
+            --dark-color: #0f172a; /* 다크 네이비 배경 (Hizbee 사이트 참고) */
+            --light-color: #1e293b; /* 카드 등 보조 배경 (Hizbee 사이트 참고) */
+            --text-color: #e2e8f0; /* 기본 텍스트 (밝은 회색) */
+            --text-light: #94a3b8; /* 보조 텍스트 (회색) */
+            --border-color: #334155;
+            --white-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--dark-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--dark-color); /* 헤더 배경 */
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-logo {
+            height: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .try-free-btn {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .try-free-btn:hover {
+            background-color: #27a0d3; /* 호버 시 약간 어둡게 */
+        }
+
+        .main-container {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--white-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem; /* 카드 사이 간격 */
+            flex-wrap: wrap; /* 카드가 많아지면 다음 줄로 넘김 */
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background-color: var(--light-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 300px; /* 카드 너비 고정 */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pricing-card h3 { /* 요금제 이름 */
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card .price {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--white-color);
+            margin-bottom: 0.5rem;
+        }
+        .pricing-card .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: normal;
+        }
+
+        .pricing-card .description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            min-height: 60px; /* 설명 부분 최소 높이 고정 */
+        }
+
+        .pricing-card .features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .pricing-card .features li {
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+        .pricing-card .features li::before { /* 체크 아이콘 대신 간단한 표시 */
+            content: '✓';
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .btn-select-plan {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #3b82f6);
+            color: var(--white-color);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-select-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark-color); /* 푸터 배경 */
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 3rem;
+        }
+
+        /* 서비스 소개 섹션 (추가) */
+        .service-introduction-section {
+            background-color: var(--light-color); /* 또는 다른 배경색 */
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .service-intro-title {
+            font-size: 2rem;
+            color: var(--white-color);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .service-intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-intro-item {
+            background-color: var(--dark-color); /* 카드 내부 배경 */
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .service-intro-item img {
+            max-width: 100px; /* 이미지 크기 조정 */
+            height: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px; /* 이미지 모서리 둥글게 */
+        }
+
+        .service-intro-item h4 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .service-intro-item p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+
+        /* 반응형 스타일 */
+        @media (max-width: 992px) {
+            .pricing-card {
+                width: calc(50% - 1rem); /* 화면 중간 크기일 때 카드 2개씩 */
+            }
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .header-logo {
+                margin-bottom: 1rem;
+            }
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links a {
+                margin-left: 0;
+                margin-bottom: 0.5rem;
+            }
+            .try-free-btn {
+                margin-top: 0.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            .pricing-card {
+                width: 100%; /* 화면 작을 때 카드 1개씩 */
+                max-width: 400px; /* 최대 너비 제한 */
+            }
+            .service-intro-grid {
+                grid-template-columns: 1fr; /* 모바일에서는 세로로 쌓이도록 */
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html">
+            <img src="./아이콘(반반).png" alt="HizBee 로고" class="header-logo">
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Hizbee</a>
+            <a href="pricing.html">요금제안내</a>
+            <a href="#">사용사례</a> <!-- 링크 준비 안됨 -->
+            <a href="statistics.html">통계리포트</a>
+            <a href="payment.html?plan=무료체험&price=0&planName=무료 체험 시작" class="try-free-btn">무료체험</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <h1 class="section-title">요금제 안내</h1>
+        <p class="section-subtitle">당신의 상품, GPT 응답에 노출되게 하려면?<br>히즈비 요금제로 한 번에 자동화 하세요</p>
+
+        <div class="pricing-cards-container">
+            <div class="pricing-card">
+                <h3>Free Trial</h3>
+                <div class="price">₩0 <span>/첫 달</span></div>
+                <p class="description">히즈비의 핵심 기능을 무료로 체험해보세요. 카드 등록 없이 바로 시작할 수 있습니다.</p>
+                <ul class="features">
+                    <li>월 최대 10개 상품 자동화</li>
+                    <li>기본 GPT 연동</li>
+                    <li>콘텐츠 생성 도우미</li>
+                    <li>커뮤니티 지원</li>
+                </ul>
+                <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" class="btn-select-plan">무료로 시작하기</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Standard</h3>
+                <div class="price">₩29,000 <span>/월</span></div>
+                <p class="description">개인 및 소규모 팀을 위한 플랜입니다. 합리적인 가격으로 히즈비의 모든 기능을 이용하세요.</p>
+                <ul class="features">
+                    <li>월 최대 100개 상품 자동화</li>
+                    <li>고급 GPT 연동 (최신 모델)</li>
+                    <li>실시간 통계 리포트</li>
+                    <li>이메일 기술 지원</li>
+                </ul>
+                <a href="payment.html?plan=Standard&price=29000&planName=Standard 플랜 구독" class="btn-select-plan">Standard 선택</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Premium</h3>
+                <div class="price">문의하기</div>
+                <p class="description">대규모 상품 DB를 운영하거나 특별한 요구사항이 있는 기업을 위한 맞춤형 플랜입니다.</p>
+                <ul class="features">
+                    <li>상품 자동화 개수 협의</li>
+                    <li>API 직접 연동 지원</li>
+                    <li>전담 매니저 배정</li>
+                    <li>맞춤형 기능 개발 컨설팅</li>
+                </ul>
+                <a href="mailto:contact@hizbee.com?subject=Premium 플랜 문의" class="btn-select-plan">전문가와 상담</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; margin-bottom: 2rem;">
+            <img src="https://cdn.imweb.me/thumbnail/20250626/74725ac6aca49.png" alt="상품 콘텐츠 생성부터 GPT,구글,네이버까지 한번이면 끝!" style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    </main>
+
+    <section class="service-introduction-section">
+        <h2 class="service-intro-title">서비스 소개</h2> <!-- 제목 변경 -->
+        <div class="service-intro-grid">
+            <div class="service-intro-item">
+                <img src="https://cdn.imweb.me/thumbnail/20240110/71ac6b72d00c0.png" alt="자동화된 상품 설명 생성">
+                <h4>AI 기반 상품 설명 자동 생성</h4>
+                <p>상품 정보만 입력하면 히즈비 AI가 매력적인 상품 설명을 자동으로 생성해줍니다. 더 이상 설명 작성에 시간을 낭비하지 마세요.</p>
+            </div>
+            <div class="service-intro-item">
+                <img src="https://cdn.imweb.me/thumbnail/20240110/ee602d96d551c.png" alt="다양한 플랫폼 연동">
+                <h4>GPT, 구글, 네이버 완벽 연동</h4>
+                <p>생성된 상품 콘텐츠를 클릭 몇 번으로 주요 GPT 플랫폼과 검색엔진에 손쉽게 노출시킬 수 있습니다. 도달 범위를 극대화하세요.</p>
+            </div>
+            <div class="service-intro-item">
+                <img src="https://cdn.imweb.me/thumbnail/20240110/c5363652985a8.png" alt="실시간 성과 분석">
+                <h4>직관적인 통계 리포트</h4>
+                <p>상품 노출 성과와 사용자 반응을 실시간으로 분석하고, 시각화된 리포트를 통해 비즈니스 전략을 최적화할 수 있습니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        Copyright ⓒ 2025 히즈비 All rights reserved.
+    </footer>
+
+</body>
+</html>
