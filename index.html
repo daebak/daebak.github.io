@@ -161,7 +161,7 @@
                 if (lucide) {
                     lucide.createIcons();
                 }
-            }, [name]);
+            }, [name]); // Re-run effect when icon name changes
             return <i data-lucide={name} style={{ color, width: size, height: size }}></i>;
         };
 
@@ -175,10 +175,11 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            // Hizbee, 요금제안내, 사용사례, 통계리포트
             const navLinks = [
-                { name: 'HizBee소개', href: '#why-hizbee' },
-                { name: '요금안내', href: 'pricing.html' }, // pricing.html로 직접 연결
-                { name: '사용사례', href: '#' }, // 준비되지 않음
+                { name: 'Hizbee', href: '#detailed-intro' }, // 상세 소개 섹션으로 연결
+                { name: '요금안내', href: 'pricing.html' },
+                { name: '사용사례', href: '#' }, // 준비 안됨
                 { name: '통계리포트', href: 'statistics.html' },
             ];
 
@@ -187,27 +188,39 @@
                     <style>{`
                         .header { background: ${isScrolled ? 'rgba(11, 17, 32, 0.8)' : 'transparent'}; backdrop-filter: ${isScrolled ? 'blur(10px)' : 'none'}; border-bottom: 1px solid ${isScrolled ? 'var(--border-color)' : 'transparent'}; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; width: 100%; transition: all 0.3s ease-in-out; }
                         .header-container { display: flex; justify-content: space-between; align-items: center; }
-                        .header-logo { height: 30px; }
-                        .desktop-nav { display: flex; align-items: center; gap: 2.5rem; }
-                        .desktop-nav a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: color 0.3s ease; }
+                        .header-logo-link { display: flex; align-items: center; text-decoration: none;}
+                        .header-logo { height: 30px; margin-right: 0.5rem; }
+                        .header-logo-text { font-size: 1.5rem; font-weight: 700; color: var(--white-color); } /* Hizbee 텍스트 로고 */
+                        .desktop-nav { display: flex; align-items: center; gap: 1.5rem; } /* 간격 조정 */
+                        .desktop-nav a { text-decoration: none; color: var(--text-light); font-weight: 500; transition: color 0.3s ease; font-size: 0.9rem;} /* 폰트 크기 조정 */
                         .desktop-nav a:hover { color: var(--white-color); }
                         .nav-buttons { display: flex; gap: 0.5rem; }
+                        .nav-buttons .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem;} /* 버튼 크기/폰트 조정 */
                         .hamburger-menu { display: none; background: none; border: none; cursor: pointer; }
                         .mobile-nav-menu { display: flex; flex-direction: column; background: var(--light-color); position: absolute; top: 65px; right: 1rem; width: calc(100% - 2rem); padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; gap: 1.5rem; border: 1px solid var(--border-color); }
                         .mobile-sticky-cta { display: none; }
-                        @media (max-width: 992px) { .desktop-nav { display: none; } .hamburger-menu { display: block; } }
-                        @media (max-width: 768px) { .mobile-sticky-cta { display: block; position: fixed; bottom: 0; left: 0; width: 100%; padding: 1rem; background: var(--dark-color); box-shadow: 0 -2px 10px rgba(0,0,0,0.2); text-align: center; z-index: 999; border-top: 1px solid var(--border-color); } .mobile-sticky-cta .btn { width: 90%; } }
+                        @media (max-width: 992px) {
+                            .desktop-nav { display: none; }
+                            .hamburger-menu { display: block; }
+                            .header-logo-text { display: none; } /* 작은 화면에서 텍스트 로고 숨김 */
+                        }
+                        @media (max-width: 768px) {
+                            .mobile-sticky-cta { display: block; position: fixed; bottom: 0; left: 0; width: 100%; padding: 1rem; background: var(--dark-color); box-shadow: 0 -2px 10px rgba(0,0,0,0.2); text-align: center; z-index: 999; border-top: 1px solid var(--border-color); }
+                            .mobile-sticky-cta .btn { width: 90%; }
+                        }
                     `}</style>
                     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
                         <div className="container header-container">
-                            <a href="/">
+                            <a href="/" className="header-logo-link">
                                 <img src="./아이콘(반반).png" alt="HizBee 로고" className="header-logo" />
+                                <span className="header-logo-text">Hizbee</span>
                             </a>
                             <nav className="desktop-nav">
                                 {navLinks.map((link) => <a key={link.name} href={link.href}>{link.name}</a>)}
                             </nav>
                             <div className="desktop-nav nav-buttons">
-                                <a href="login.html" className="btn btn-outline">로그인</a>
+                                {/* 로그인 버튼은 참조 사이트에 없음, 일단 유지 또는 필요시 제거 */}
+                                {/* <a href="login.html" className="btn btn-outline">로그인</a> */}
                                 <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary">무료체험</a>
                             </div>
                             <button className="hamburger-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -216,7 +229,7 @@
                             {isMenuOpen && (
                                 <div className="mobile-nav-menu">
                                     {navLinks.map((link) => <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)}>{link.name}</a>)}
-                                    <a href="login.html" className="btn btn-outline" style={{marginTop: '1rem', textAlign:'center'}}>로그인</a>
+                                    {/* <a href="login.html" className="btn btn-outline" style={{marginTop: '1rem', textAlign:'center'}}>로그인</a> */}
                                     <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary" style={{marginTop: '0.5rem', textAlign:'center'}}>무료체험</a>
                                 </div>
                             )}
@@ -229,71 +242,168 @@
             );
         };
 
-        const HeroSection = () => (
+        const HeroSection = () => ( // 참조: B. 메인 비주얼
             <section className="hero-section">
                 <style>{`
-                    .hero-section { text-align: center; padding: 8rem 0; }
-                    .hero-section h1 { font-size: 3rem; font-weight: 800; line-height: 1.4; color: var(--white-color); }
-                    .hero-sub-text { font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin: 1.5rem auto 2.5rem auto; }
-                    .hero-image-wrapper { margin-top: 3rem; }
-                    .hero-image { max-width: 350px; width: 100%; filter: drop-shadow(0 0 2rem rgba(56, 189, 248, 0.3));}
-                    .hero-highlight { color: var(--primary-color); }
+                    .hero-section { text-align: center; padding: 6rem 0; background-color: var(--dark-color); /* 배경색 명시 */ }
+                    .hero-section h1 { font-size: 2.8rem; font-weight: 700; line-height: 1.3; color: var(--white-color); margin-bottom: 1rem;}
+                    .hero-section .highlight-text { font-size: 1.5rem; color: var(--primary-color); display: block; margin-bottom: 1rem; font-weight: 600;}
+                    .hero-sub-text { font-size: 1rem; color: var(--text-light); max-width: 550px; margin: 0 auto 2rem auto; }
+                    .hero-image-wrapper { margin-top: 2.5rem; }
+                    .hero-image { max-width: 100%; /* 이미지 크기를 부모에 맞춤 */ height: auto; max-height: 400px; /* 최대 높이 제한 */ object-fit: contain; filter: drop-shadow(0 0 1.5rem rgba(56, 189, 248, 0.25));}
+                    @media (max-width: 768px) {
+                        .hero-section { padding: 4rem 1rem; }
+                        .hero-section h1 { font-size: 2.2rem; }
+                        .hero-section .highlight-text { font-size: 1.2rem; }
+                        .hero-sub-text { font-size: 0.9rem; }
+                    }
                 `}</style>
                 <div className="container">
                     <h1 className="animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.1s'}}>
-                        GPT에 내 상품이 <br/> 추천되게 할 수 있다고요?!
+                        " GPT에 내 상품이 <br/> 추천되게 할 수 있다고? "
                     </h1>
-                    <p className="hero-sub-text animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.2s'}}>
-                        히즈비와 함께라면 가능합니다! <br/>
-                        GPT, 구글 블로그까지 한 번에 노출! GPT가 질문에 답하며 추천하면, 고객은 믿고 구매합니다!
+                    <p className="highlight-text animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.2s'}}>
+                        히즈비와 함께라면 가능합니다
                     </p>
-                    <div className="animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.3s'}}>
+                    <p className="hero-sub-text animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.3s'}}>
+                        GPT · 구글 블로그까지 한 번에 노출!<br/>
+                        고객들의 GPT 신뢰도 70% 이상<br/>
+                        GPT가 질문에 답하여 추천하면 믿고 구매합니다!
+                    </p>
+                    {/* 히어로 섹션의 CTA 버튼은 참조사이트에 명확히 없으나, 기존 구조 유지 또는 필요시 FinalCTA로 통일 */}
+                    {/* <div className="animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.4s'}}>
                          <a href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작" className="btn btn-primary pulse-animation">무료체험 시작하기</a>
-                    </div>
+                    </div> */}
                     <div className="hero-image-wrapper animate-on-scroll is-visible fade-in-up" style={{transitionDelay: '0.4s'}}>
-                        <img src="./소개1.png" alt="ChatGPT에 내 상품이 추천되는 모습" className="hero-image" />
+                        <img src="https://cdn.imweb.me/thumbnail/20250620/f8253adf08553.png" alt="GPT에 상품 추천" className="hero-image" />
                     </div>
                 </div>
             </section>
         );
 
-        const WhyHizbeeSection = () => {
-            const [ref1, isVisible1] = useAnimateOnScroll();
-            const [ref2, isVisible2] = useAnimateOnScroll();
+        const BrandIntroSection = () => { // 참조: C. 브랜드 소개
+            const [ref, isVisible] = useAnimateOnScroll();
+            const stats = [
+                { label: "마이클리닝과 함께한 유저", value: "41,274+" },
+                { label: "마이클리닝 앱 다운로드 수", value: "52,560+" },
+                { label: "마이클리닝과 누적 투자액", value: "1,212억 원" },
+            ];
+            return (
+                <section id="brand-intro" ref={ref} style={{backgroundColor: 'var(--light-color)'}}>
+                    <style>{`
+                        .brand-intro-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;}
+                        .brand-intro-img { width: 100%; max-width: 450px; border-radius: 12px; object-fit: cover; }
+                        .brand-intro-text h2 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;}
+                        .brand-intro-text h3 { font-size: 2.2rem; margin-bottom: 1.5rem; }
+                        .brand-stats { display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; }
+                        .stat-item { text-align: center; }
+                        .stat-item .value { font-size: 2rem; font-weight: 700; color: var(--primary-color); display: block; }
+                        .stat-item .label { font-size: 0.9rem; color: var(--text-light); }
+                        .brand-intro-text .btn { margin-top: 2rem; }
+
+                        @media (max-width: 992px) {
+                            .brand-intro-content { grid-template-columns: 1fr; text-align: center; }
+                            .brand-intro-img { margin: 0 auto 2rem auto; }
+                            .brand-stats { justify-content: center; }
+                        }
+                        @media (max-width: 768px) {
+                            .brand-intro-text h3 { font-size: 1.8rem; }
+                            .stat-item .value { font-size: 1.5rem; }
+                            .stat-item .label { font-size: 0.8rem; }
+                        }
+                    `}</style>
+                    <div className={`container animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
+                        <div className="brand-intro-content">
+                            <div className="img-col">
+                                <img src="https://cdn.imweb.me/thumbnail/20240110/30917ebfdb2d4.png" alt="브랜드 소개 이미지" className="brand-intro-img" />
+                            </div>
+                            <div className="brand-intro-text">
+                                <h2>브랜드소개</h2>
+                                <h3>불편하고 번거로운<br/>세탁 서비스를 혁신하기 위해<br/>출발했습니다</h3>
+                                <p>
+                                    불편하고 번거로운 세탁 서비스를 혁신하기 위해 출발했습니다.
+                                    마이클리닝은 업계 최고의 전문가들이 모여 사람들의 삶이 더 행복해질 수 있는 미래의 세탁을 고민하고 있습니다.
+                                </p>
+                                <div className="brand-stats">
+                                    {stats.map(stat => (
+                                        <div key={stat.label} className="stat-item">
+                                            <span className="value">{stat.value}</span>
+                                            <span className="label">{stat.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <a href="javascript:void(0);" className="btn btn-outline" style={{display:'inline-block', marginTop: '2rem'}}>더 알아보기</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            )
+        };
+
+        const WhyHizbeeSection = () => { // 참조: D. Why Hizbee
+            const [ref1, isVisible1] = useAnimateOnScroll({ threshold: 0.05 });
+            const [ref2, isVisible2] = useAnimateOnScroll({ threshold: 0.05 });
+            const [ref3, isVisible3] = useAnimateOnScroll({ threshold: 0.05 });
+
             return (
                 <section id="why-hizbee">
                     <style>{`
-                        .why-hizbee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-                        .why-hizbee-grid:not(:last-child) { margin-bottom: 6rem; }
-                        .why-hizbee-img { max-width: 80%; border-radius: 12px; filter: drop-shadow(0 0 1rem rgba(56, 189, 248, 0.2));}
-                        .text-highlight { color: var(--primary-color); }
+                        .why-hizbee-intro { text-align: center; margin-bottom: 4rem; }
+                        .why-hizbee-intro h2 { font-size: 2.5rem; }
+                        .why-hizbee-intro p { font-size: 1.1rem; color: var(--primary-color); font-weight: 600; }
+                        .why-hizbee-intro-img { max-width: 100%; height: auto; max-height: 350px; object-fit: contain; margin-top: 1.5rem; }
+
+                        .why-hizbee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 5rem; }
+                        .why-hizbee-grid .text-col h3 { font-size: 1.8rem; margin-bottom: 1rem; line-height: 1.5; }
+                        .why-hizbee-grid .text-col .emphasis { font-size: 1.3rem; color: var(--primary-color); display: block; font-weight: 600; margin-bottom: 0.5rem; }
+                        .why-hizbee-grid .text-col .question-mark { font-size: 2rem; color: var(--primary-color); font-weight: bold; display: block; margin-top: 0.5rem;}
+                        .why-hizbee-img { width: 100%; max-width: 400px; border-radius: 12px; object-fit: contain; }
+                        .text-highlight { color: var(--primary-color); font-weight: bold; }
+
                         @media (max-width: 768px) {
                             .why-hizbee-grid { grid-template-columns: 1fr; }
-                            .why-hizbee-grid .img-col { order: -1; margin-bottom: 2rem; }
-                         }
+                            .why-hizbee-grid .img-col { order: -1; margin-bottom: 2rem; text-align: center;}
+                            .why-hizbee-grid .text-col h3 { font-size: 1.5rem; }
+                            .why-hizbee-intro h2 {font-size: 2rem;}
+                        }
                     `}</style>
                     <div className="container">
-                        <div ref={ref1}>
-                            <h2 className={`animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`}>WHY?<br/>히즈비가 필요한 이유</h2>
+                        <div ref={ref1} className={`why-hizbee-intro animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
+                            <h2>GPT에 내 상품이<br/>추천되게 할 수 있다고?!</h2>
+                            <p>히즈비와 함께 라면 가능합니다!</p>
+                            <p style={{color: 'var(--text-light)', fontSize: '1rem', fontWeight: 'normal'}}>
+                                GPT · 구글 블로그까지 한 번에 노출!<br/>
+                                고객들의 GPT 신뢰도 70% 이상<br/>
+                                GPT가 질문에 답하여 추천하면 믿고 구매합니다!
+                            </p>
+                            <img src="https://cdn.imweb.me/thumbnail/20250623/3104ef7022d4f.png" alt="히즈비 가능성" className="why-hizbee-intro-img"/>
                         </div>
 
-                        <div className="why-hizbee-grid" ref={ref1} style={{marginTop: '4rem'}}>
-                            <div className={`text-col animate-on-scroll ${isVisible1 ? 'is-visible fade-in-left' : 'fade-in-left'}`} style={{transitionDelay: '0.1s'}}>
-                                <h3>전세계 <span className="text-highlight">4억명</span>이 쓰는 GPT,<br/>하루 <span className="text-highlight">10억 건</span> 질문 중<br/>2억 건은 "상품 추천"</h3>
-                                <p>그런데 당신의 상품은 왜 추천되지 않았을까요?</p>
-                            </div>
-                             <div className={`img-col animate-on-scroll ${isVisible1 ? 'is-visible fade-in-right' : 'fade-in-right'}`} style={{transitionDelay: '0.2s', textAlign: 'center'}}>
-                                <img src="./소개2.png" alt="상품 추천 질문" className="why-hizbee-img" />
-                            </div>
+                        <div style={{textAlign: 'center', marginBottom: '3rem'}}>
+                             <h2 className={`animate-on-scroll ${isVisible1 ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.2s'}}>
+                                <span style={{color: 'var(--primary-color)', display:'block', fontSize: '1.5rem', marginBottom:'0.5rem'}}>WHY?</span>
+                                히즈비가 필요한 이유
+                            </h2>
                         </div>
 
                         <div className="why-hizbee-grid" ref={ref2}>
-                             <div className={`img-col animate-on-scroll ${isVisible2 ? 'is-visible fade-in-left' : 'fade-in-left'}`} style={{transitionDelay: '0.1s', textAlign: 'center'}}>
-                                <img src="./소개3.png" alt="Q&A" className="why-hizbee-img" />
+                            <div className={`text-col animate-on-scroll ${isVisible2 ? 'is-visible fade-in-left' : 'fade-in-left'}`} style={{transitionDelay: '0.1s'}}>
+                                <h3>전세계 <span className="text-highlight">4억명</span>이 쓰는 GPT<br/>하루 질문 수 <span className="text-highlight">10억 건</span> 중 <span className="text-highlight">2억 건</span>은<br/>" 상품 추천 "</h3>
+                                <p>그런데 당신의 상품은<span className="question-mark">왜?</span>추천되지 않았을까요?</p>
                             </div>
-                            <div className={`text-col animate-on-scroll ${isVisible2 ? 'is-visible fade-in-right' : 'fade-in-right'}`} style={{transitionDelay: '0.2s'}}>
-                                <h3>내 상품이 좋아도 GPT가 모르면 추천되지 않습니다.</h3>
-                                <p>SEO블로그도 제대로 된 질문형 콘텐츠가 없으면 상위 노출되지 않습니다.<br/><strong className="text-highlight">히즈비는 다릅니다!</strong> GPT에 맞춰 질문을 설계하고, 답변을 당신의 상품으로 채웁니다.</p>
+                             <div className={`img-col animate-on-scroll ${isVisible2 ? 'is-visible fade-in-right' : 'fade-in-right'}`} style={{transitionDelay: '0.2s', textAlign: 'center'}}>
+                                <img src="https://cdn.imweb.me/thumbnail/20250620/70e88c8e1e9a4.png" alt="상품 추천 질문" className="why-hizbee-img" />
+                            </div>
+                        </div>
+
+                        <div className="why-hizbee-grid" ref={ref3}>
+                             <div className={`img-col animate-on-scroll ${isVisible3 ? 'is-visible fade-in-left' : 'fade-in-left'}`} style={{transitionDelay: '0.1s', textAlign: 'center'}}>
+                                <img src="https://cdn.imweb.me/thumbnail/20250620/465e2373301e4.png" alt="GPT가 모르는 상품" className="why-hizbee-img" />
+                            </div>
+                            <div className={`text-col animate-on-scroll ${isVisible3 ? 'is-visible fade-in-right' : 'fade-in-right'}`} style={{transitionDelay: '0.2s'}}>
+                                <h3>내 상품이 좋아도<br/>GPT가 모르면 추천되지 않습니다</h3>
+                                <p>SEO 블로그도 제대로 된 질문형 콘텐츠가 없으면 상위 노출되지 않습니다</p>
+                                <p><strong className="text-highlight">히즈비는 다릅니다!</strong><br/>GPT에 맞춰 질문을 설계하고 답변을 당신의 상품으로 채웁니다</p>
                             </div>
                         </div>
                     </div>
@@ -301,19 +411,19 @@
             );
         };
 
-        const CoreFeaturesSection = () => {
+        const CoreFeaturesSection = () => { // 참조: E. 핵심 기능
             const [ref, isVisible] = useAnimateOnScroll();
             return (
-                <section id="features" ref={ref} style={{background: 'var(--dark-color)', paddingTop:'0'}}>
+                <section id="features" ref={ref} style={{background: 'var(--light-color)', paddingTop:'3rem', paddingBottom: '3rem'}}>
                     <style>{`
-                        .features-img { display: block; max-width: 900px; width: 100%; margin: 2rem auto 0 auto; }
+                        .features-img { display: block; max-width: 1000px; width: 100%; margin: 2rem auto 0 auto; border-radius: 12px; }
                     `}</style>
                     <div className="container">
-                         <div className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
+                         <div className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{textAlign:'center'}}>
                             <h2>히즈비의 핵심기능<br/>한눈에 보기</h2>
                         </div>
                         <img
-                            src="./소개4.png"
+                            src="https://cdn.imweb.me/thumbnail/20250620/4515674a2eea8.png"
                             alt="히즈비 핵심기능"
                             className={`features-img animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}
                             style={{transitionDelay: '0.2s'}}
@@ -323,150 +433,31 @@
             );
         };
 
-        const PricingSection = () => {
-            const [ref, isVisible] = useAnimateOnScroll();
-            const plans = [
-                {
-                    name: "베이직",
-                    price: "월 49,000원",
-                    features: [
-                        "GPT 최적화 질문 10개",
-                        "월 최대 100건 GPT 답변 노출",
-                        "기본 통계 리포트",
-                        "이메일 지원"
-                    ],
-                    buttonText: "베이직 플랜 시작",
-                    highlight: false
-                },
-                {
-                    name: "프로",
-                    price: "월 99,000원",
-                    features: [
-                        "GPT 최적화 질문 30개",
-                        "월 최대 500건 GPT 답변 노출",
-                        "상세 통계 리포트",
-                        "구글 블로그 연동",
-                        "우선 기술 지원"
-                    ],
-                    buttonText: "프로 플랜 시작",
-                    highlight: true
-                },
-                {
-                    name: "엔터프라이즈",
-                    price: "별도 문의",
-                    features: [
-                        "GPT 최적화 질문 무제한",
-                        "GPT 답변 노출 무제한",
-                        "맞춤형 통계 및 컨설팅",
-                        "API 접근 제공",
-                        "전담 매니저 지원"
-                    ],
-                    buttonText: "문의하기",
-                    highlight: false
-                }
-            ];
+        // PricingSection은 index.html에서 제거하고 pricing.html에서 관리
 
-            useEffect(() => {
-                if (lucide) {
-                    lucide.createIcons();
-                }
-            }, [plans, isVisible]); // Re-run if plans or visibility change
-
-            return (
-                <section id="pricing" ref={ref}> {/* id="pricing" will be used for navigation */}
-                    <style>{`
-                        .pricing-title-wrapper { text-align: center; margin-bottom: 4rem; }
-                        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: stretch; }
-                        .pricing-card { background-color: var(--light-color); padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-color); transition: all 0.3s ease; display: flex; flex-direction: column; }
-                        .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-                        .pricing-card.highlight { border-color: var(--primary-color); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-                        .pricing-card h3 { font-size: 1.8rem; color: var(--white-color); margin-bottom: 0.5rem; }
-                        .pricing-card .price { font-size: 2rem; font-weight: 700; color: var(--primary-color); margin-bottom: 1.5rem; }
-                        .pricing-card .features-list { list-style: none; padding: 0; margin-bottom: 2rem; flex-grow: 1; }
-                        .pricing-card .features-list li { margin-bottom: 0.8rem; display: flex; align-items: center; color: var(--text-light); }
-                        .pricing-card .features-list li i { margin-right: 0.7rem; color: var(--primary-color); width: 20px; height: 20px; }
-                        .pricing-card .btn { width: 100%; margin-top: auto; }
-                        .highlight-badge { display: inline-block; background-color: var(--primary-color); color: var(--dark-color); padding: 0.3rem 0.8rem; font-size: 0.8rem; font-weight: 700; border-radius: 20px; position: absolute; top: -15px; right: 20px; }
-                        .pricing-card-header { position: relative; margin-bottom: 1rem;}
-
-                        @media (max-width: 992px) {
-                           .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-                        }
-
-                        @media (max-width: 768px) {
-                            .pricing-grid { grid-template-columns: 1fr; }
-                            .pricing-card { padding: 2rem; }
-                            .pricing-card h3 { font-size: 1.6rem; }
-                            .pricing-card .price { font-size: 1.8rem; }
-                        }
-                    `}</style>
-                    <div className="container">
-                        <div className={`pricing-title-wrapper animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
-                            <h2>합리적인 요금제로<br/>HizBee의 모든 기능을 활용하세요</h2>
-                            <p>당신의 비즈니스 성장에 꼭 맞는 플랜을 선택하세요.</p>
-                        </div>
-                        <div className="pricing-grid">
-                            {plans.map((plan, index) => (
-                                <div
-                                    key={plan.name}
-                                    className={`pricing-card ${plan.highlight ? 'highlight' : ''} animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}
-                                    style={{transitionDelay: `${index * 0.1 + 0.1}s`}}
-                                >
-                                    <div className="pricing-card-header">
-                                        <h3>{plan.name}</h3>
-                                        {plan.highlight && <span className="highlight-badge">추천</span>}
-                                    </div>
-                                    <p className="price">{plan.price}</p>
-                                    <ul className="features-list">
-                                        {plan.features.map(feature => (
-                                            <li key={feature}>
-                                                <Icon name="check-circle" size={20} /> {/* Using Icon component */}
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a
-                                        href={plan.price === "별도 문의" ? "#" : `payment.html?plan=${encodeURIComponent(plan.name)}&price=${parseInt(plan.price.replace(/[^0-9]/g, ''), 10)}&planName=${encodeURIComponent(plan.name + " 플랜 구독")}`}
-                                        onClick={(e) => {
-                                            if (plan.price === "별도 문의") {
-                                                e.preventDefault();
-                                                alert("엔터프라이즈 플랜은 별도 문의가 필요합니다.\n(문의 기능은 현재 개발 중입니다.)");
-                                            }
-                                            // 유료 플랜의 경우 기본 href 동작으로 payment.html 이동
-                                        }}
-                                        className={`btn ${plan.highlight ? 'btn-primary' : 'btn-outline'}`}
-                                    >
-                                        {plan.buttonText}
-                                    </a>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            );
-        };
-
-        const FinalCTA = () => {
+        const FinalCTA = () => { // 참조: F. 최종 CTA
             const [ref, isVisible] = useAnimateOnScroll();
             return (
-                <section id="cta" ref={ref} style={{paddingBottom: '8rem'}}>
+                <section id="cta" ref={ref} style={{paddingBottom: '6rem', paddingTop: '4rem'}}>
                     <style>{`
                         .final-cta-box { text-align: center; }
-                        .final-cta-box h2 { font-size: 2.2rem; }
+                        .final-cta-box h2 { font-size: 2.2rem; margin-bottom: 1rem; }
                         .final-cta-box h3 { color: var(--primary-color); margin-bottom: 2.5rem; font-weight: 600; font-size: 1.5rem; }
+                        .final-cta-box .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
+                        @media (max-width: 768px) {
+                            .final-cta-box h2 { font-size: 1.8rem; }
+                            .final-cta-box h3 { font-size: 1.2rem; }
+                            .final-cta-box .btn {padding: 0.8rem 2rem; font-size: 1rem;}
+                        }
                     `}</style>
                     <div className="container">
                         <div className="final-cta-box">
-                            <h3 className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.1s'}}>지금 바로 시작해보세요</h3>
-                            <h2 className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.2s'}}>AI 시대, 상품은 노출되어야 팔립니다.<br/>히즈비와 함께라면 가능합니다.</h2>
+                            <h3 className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.1s'}}>지금 바로 시작해보세요!</h3>
+                            <h2 className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.2s'}}>AI 시대, 상품은 노출되어야 팔립니다<br/>히즈비와 함께라면 가능합니다</h2>
                             <div className={`animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: '0.3s', marginTop: '2.5rem'}}>
                                 <a
-                                    href="#"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        alert("무료 체험 신청 기능은 현재 개발 중입니다. Pricing 섹션에서 유료 플랜을 선택하여 결제 테스트를 진행해주세요.");
-                                    }}
-                                    className="btn btn-primary" style={{padding: '1rem 2.5rem', fontSize: '1.2rem'}}
+                                    href="payment.html?plan=Free Trial&price=0&planName=무료 체험 시작"
+                                    className="btn btn-primary"
                                 >
                                     무료체험 시작하기
                                 </a>
@@ -477,16 +468,146 @@
             );
         };
 
+        const DetailedIntroSection = () => { // 참조: G. 상세 소개
+            const [ref, isVisible] = useAnimateOnScroll({ threshold: 0.02 });
+            const introItems = [
+                {
+                    title: "왜 GPT 응답 노출이 중요할까요?",
+                    content: [
+                        "전세계 4억명의 사용자와",
+                        "하루 평균 10억건의 질문개수!",
+                        "그 중에서 2억건이 상품추천에 관한 질문입니다",
+                        "GPT가 추천하면, 사용자들은 믿고 구매합니다"
+                    ],
+                    images: ["https://cdn.imweb.me/thumbnail/20250625/f9904a755da4c.png", "https://cdn.imweb.me/thumbnail/20250623/c1d79de89be9d.png"]
+                },
+                {
+                    title: "Hizbee 란?",
+                    content: [
+                        "GPT 응답 최적화 AI 블로그봇 플랫폼",
+                        "GPT의 응답에 최적으로 노출되도록 사용자의 상품 콘텐츠를 자동으로 만들어주는 생성형 AI 기반 콘텐츠 등록 & 배포 자동화 솔루션입니다"
+                    ],
+                    images: []
+                },
+                {
+                    title: "GPT 응답 최적화 추천 핵심 기술",
+                    subtitle: "GPT 응답 최적화 노출 및 추천 로직",
+                    points: [
+                        "사용자 질문 속 키워드&의도 분석",
+                        "질문과 가장 연관성 높은 상품 자동 매칭",
+                        "OpenAI 응답 로직 최적화 방식 적용",
+                        "유사도 + 카테고리 추론 + 키워드 강화 설계"
+                    ],
+                    results: ["GPT가 당신의 상품을 가장 먼저 추천", "GPT 직접 추천으로 전환율 UP!"],
+                    images: ["https://cdn.imweb.me/thumbnail/20250625/dbf62f5690210.png", "https://cdn.imweb.me/thumbnail/20250625/bb21785b9bd5b.png"]
+                },
+                {
+                    title: "AI 자동 블로그 / SEO 시스템",
+                    subtitle: "구글/네이버 검색 최적화 콘텐츠 자동생성",
+                    points: [
+                        "상품 설명을 기반 SEO 최적화 블로그 자동생성",
+                        "GPT가 좋아하는 질문형, 키워드형, 요약형 콘텐츠 생성",
+                        "구글/네이버 검색 알고리즘에 맞춰 메타태그 생성"
+                    ],
+                    results: ["구글​ 검​색 상위 노출", "블로그 링크로 상품 바로 연결", "클릭률 & 체류시간 & 전환율 UP"],
+                    images: [] // 이미지가 있으나 텍스트와 섞여있어 별도 배치
+                },
+                 {
+                    title: "멀티 플랫폼 자동등록 기능",
+                    subtitle: "클릭 한번으로  GPT/구글/네이버까지 한번에!",
+                    points: [
+                        "콘텐츠 생성 >> 구글 블로그,네이버 블로그 자동 게시",
+                        "각 플랫폼 특성에 맞게 형식 자동 조정",
+                        "API 기반 자동 등록 (단, 네이버는 정책상 자동 생성 후 등록은 수동 진행)"
+                    ],
+                    results: ["블로그 등록 시간 90% 절약", "노출 채널 3배 증가", "유입 트래픽 & GPT 응답 추천 확률 급증"],
+                    images: ["https://cdn.imweb.me/thumbnail/20250625/2752aec662122.png"]
+                },
+                {
+                    title: "구매 전환 상승 구조 다이어그램",
+                    subtitle: "단순 노출이 아닌 구매 전환 AI 동선 설계",
+                    diagram: [
+                        "상품 상세페이지 URL 입력", "▼", "상품정보 추출", "▼", "AI 콘텐드 자동생성", "▼",
+                        "GPT&블로그 검색최적화", "▼", "질문 응답 시 최적 노출", "▼", "사용자 신뢰 기반 추천", "▼",
+                        "링크 클릭", "▼", "상품 구매 전환"
+                    ],
+                    images: ["https://cdn.imweb.me/thumbnail/20250626/527d1ffdfc1e2.jpg"]
+                }
+            ];
+
+            return (
+                <section id="detailed-intro" ref={ref} style={{backgroundColor: 'var(--dark-color)', padding: '4rem 0'}}>
+                    <style>{`
+                        .detailed-intro-header { text-align: center; margin-bottom: 3rem; }
+                        .detailed-intro-header h2 { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+                        .detailed-intro-header h3 { font-size: 2.5rem; margin-bottom: 1rem; }
+                        .detailed-intro-header p { font-size: 1.1rem; color: var(--text-light); }
+
+                        .intro-item { margin-bottom: 4rem; padding: 2rem; background-color: var(--light-color); border-radius: 12px; border: 1px solid var(--border-color); }
+                        .intro-item h4 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+                        .intro-item h5 { font-size: 1.1rem; color: var(--white-color); margin-bottom: 1.5rem; font-weight: 600;}
+                        .intro-item p, .intro-item li { color: var(--text-light); margin-bottom: 0.7rem; line-height: 1.7; font-size: 0.95rem;}
+                        .intro-item ul { list-style: none; padding-left: 0; }
+                        .intro-item ul li::before { content: '●'; margin-right: 0.7rem; color: var(--primary-color); }
+                        .intro-item .results li::before { content: '▶'; }
+                        .intro-item .diagram-item { text-align: center; font-size: 1rem; margin-bottom: 0.3rem; }
+                        .intro-images { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
+                        .intro-images img { max-width: 100%; height: auto; border-radius: 8px; max-height: 250px; object-fit: contain; }
+
+                        @media (max-width: 768px) {
+                            .detailed-intro-header h3 { font-size: 2rem; }
+                            .intro-item h4 { font-size: 1.3rem; }
+                            .intro-item h5 { font-size: 1rem; }
+                            .intro-images img { max-height: 180px; }
+                        }
+                    `}</style>
+                    <div className={`container animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`}>
+                        <div className="detailed-intro-header">
+                            <h2>Hizbee 소개</h2>
+                            <h3>"GPT가 내 상품을 추천하게 할 수 있다고?"</h3>
+                            <p>네! 가능합니다<br/>그것도 쉽고 간단하게 GPT / 구글 / 네이버 한번에 노출!</p>
+                        </div>
+
+                        {introItems.map((item, index) => (
+                            <div key={index} className={`intro-item animate-on-scroll ${isVisible ? 'is-visible fade-in-up' : 'fade-in-up'}`} style={{transitionDelay: `${index * 0.1}s`}}>
+                                {item.title && <h4>{item.title}</h4>}
+                                {item.subtitle && <h5>{item.subtitle}</h5>}
+                                {item.content && item.content.map((text, i) => <p key={i}>{text}</p>)}
+                                {item.points && <ul>{item.points.map((point, i) => <li key={i}>{point}</li>)}</ul>}
+                                {item.results && <ul className="results" style={{marginTop: '1rem'}}>{item.results.map((result, i) => <li key={i}>{result}</li>)}</ul>}
+                                {item.diagram && <div className="diagram" style={{marginTop: '1rem'}}>{item.diagram.map((d, i) => <p key={i} className="diagram-item">{d}</p>)}</div>}
+                                {item.images && item.images.length > 0 && (
+                                    <div className="intro-images">
+                                        {item.images.map((imgSrc, i) => <img key={i} src={imgSrc} alt={`${item.title} 이미지 ${i+1}`} />)}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const Footer = () => (
+            <footer style={{textAlign: 'center', padding: '2rem', borderTop: '1px solid var(--border-color)', fontSize: '0.9rem', color: 'var(--text-light)'}}>
+                Copyright ⓒ 2025 히즈비 All rights reserved.
+            </footer>
+        );
+
+
         const App = () => (
             <>
                 <Header />
                 <main>
-                    <HeroSection />
-                    <WhyHizbeeSection />
-                    <CoreFeaturesSection />
-                    <PricingSection />
-                    <FinalCTA />
+                    <HeroSection />         {/* B. 메인 비주얼 */}
+                    <BrandIntroSection />   {/* C. 브랜드 소개 */}
+                    <WhyHizbeeSection />    {/* D. Why Hizbee */}
+                    <CoreFeaturesSection /> {/* E. 핵심 기능 */}
+                    {/* PricingSection은 pricing.html로 분리되었으므로 여기서는 렌더링 안함 */}
+                    <FinalCTA />            {/* F. 최종 CTA */}
+                    <DetailedIntroSection />{/* G. 상세 소개 */}
                 </main>
+                <Footer />                {/* H. 푸터 */}
             </>
         );
 
